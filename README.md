@@ -1,78 +1,92 @@
-# agendapro-beauty
+# AgendaPro-Beauty
 
-O projeto simula uma demanda real de mercado: digitalização de agendamento de um salão
-de beleza que atualmente realiza agendamentos manualmente (WhatsApp ou telefone),
-enfrentando conflitos de horários, retrabalho e falta de controle gerencial.
-Ao final do desafio, espera-se que os participantes sejam capazes de:
-● Desenvolver uma aplicação web completa com autenticação e controle de acesso;
-● Implementar sistema de agendamento com regras de disponibilidade;
-● Criar integração entre front-end e back-end via API REST;
-● Modelar e estruturar banco de dados relacional;
-● Implementar regras de negócio (cancelamentos, bloqueio de horários, confirmação
-de agendamento);
-● Organizar, documentar e versionar o código;
-● Trabalhar em equipe utilizando metodologia ágil;
-● Demonstrar evolução técnica ao longo do período da residência.
+Status do Projeto: Em desenvolvimento (Residência Técnica)
 
-Escopo do Sistema – Visão do Produto (MVP)
-Funcionalidades para o Cliente:
-• Cadastro e login de usuários
-• Visualização de serviços oferecidos
-• Visualização de profissionais disponíveis
-• Filtro por área do salão (cabelo, manicure, estética facial, corporal etc.)
-• Escolha de data e horário disponíveis
+O AgendaPro-Beauty é a simulação de uma demanda real de mercado: a digitalização do sistema de agendamentos de um salão de beleza. O objetivo é substituir o processo manual (feito via WhatsApp ou telefone) por uma solução automatizada, eliminando conflitos de horários, retrabalho e a falta de controle gerencial.
 
-• Confirmação automática de agendamento
-• Cancelamento ou reagendamento dentro de regras definidas
-Funcionalidades Administrativas:
-• Cadastro de profissionais
-• Cadastro de serviços (com duração e valor)
-• Organização por áreas do salão
-• Definição de horários de trabalho de cada profissional
-• Bloqueio manual de horários
-• Visualização de agenda por profissional
-• Dashboard simples com:
-● Total de agendamentos
-● Serviços mais solicitados
-● Profissionais mais requisitados
-Regras de Negócio do MVP:
-• Impedir conflito de horários
-• Considerar duração do serviço para bloqueio automático da agenda
-• Permitir cancelamento com antecedência mínima configurável
-• Controlar status do agendamento (Confirmado, Cancelado, Concluído)
-Persistência e Estrutura:
-• Banco de dados relacional
-• API REST estruturada
-• Controle básico de segurança e autenticação
+---
 
-Divisão de Responsabilidades
-Back-end:
-• Modelagem do banco de dados
-• Implementação das regras de negócio de agendamento
-• Criação da API REST
-• Controle de autenticação e autorização
-• Persistência e segurança dos dados
-• Lógica de disponibilidade de horários
-• Gestão de status dos agendamentos
+## Objetivos de Aprendizado
 
-Front-end:
-• Desenvolvimento da interface pública do site
-• Tela de agendamento intuitiva e responsiva
-• Interface administrativa (painel interno)
-• Experiência do usuário (cliente e administrador)
-• Consumo da API
-• Validação de dados no lado do cliente
-• Organização visual das áreas e serviços
+Ao final deste desafio, os participantes estarão aptos a:
 
-Tecnologias Sugeridas (Opcional)
-• Front-end: React, Vue ou HTML/CSS/JS
-• Back-end: Node.js, Python ou Java
-• Banco de Dados: PostgreSQL ou MySQL
-• Versionamento: Git e GitHub
-• Metodologia: Scrum ou Kanban
+- **Desenvolvimento Full-Stack:** Construir uma aplicação web completa com autenticação e controle de acesso.
+- **Regras de Negócio Complexas:** Implementar sistemas de agendamento com regras estritas de disponibilidade.
+- **Integração:** Criar e consumir APIs REST para conectar o Front-end ao Back-end.
+- **Banco de Dados:** Modelar e estruturar bancos de dados relacionais eficientes.
+- **Boas Práticas:** Organizar, documentar e versionar código seguindo padrões de mercado.
+- **Metodologia Ágil:** Trabalhar em equipe utilizando frameworks ágeis e demonstrar evolução técnica contínua.
 
-Resultado Esperado ao Final da Residência
-Ao final dos 3 meses, espera-se a entrega de:
-• Sistema funcional
-• Código organizado e versionado
-• Documentação básica do projeto (README + documentação da API)
+---
+
+## Escopo do Sistema (Visão do MVP)
+
+### Funcionalidades para o Cliente
+
+- **Acesso:** Cadastro e login de usuários.
+- **Catálogo:** Visualização de serviços oferecidos e profissionais disponíveis.
+- **Busca Inteligente:** Filtros por área do salão (Cabelo, Manicure, Estética Facial, Corporal, etc.).
+- **Agendamento:** Escolha de data/horário disponíveis e confirmação automática.
+- **Autonomia:** Cancelamento ou reagendamento dentro das regras definidas.
+
+### Funcionalidades Administrativas
+
+- **Cadastros:** Gerenciamento de profissionais, serviços (com duração e valor) e áreas do salão.
+- **Gestão de Escala:** Definição de horários de trabalho por profissional e bloqueio manual de horários.
+- **Visualização:** Agenda completa organizada por profissional.
+- **Dashboard Gerencial:**
+  - Total de agendamentos realizados.
+  - Serviços mais solicitados.
+  - Profissionais mais requisitados.
+
+### Regras de Negócio do MVP
+
+> **Importante:** O sistema deve impedir rigorosamente o conflito de horários, considerando o tempo de duração de cada serviço para bloquear a agenda automaticamente.
+
+- **Cancelamento:** Permitido apenas com uma antecedência mínima configurável.
+- **Fluxo de Status:** Controle rigoroso dos estados do agendamento (Confirmado, Cancelado, Concluído).
+- **Segurança:** Persistência em banco de dados relacional com controle básico de segurança e autenticação.
+
+---
+
+## Divisão de Responsabilidades
+
+Para o desenvolvimento do projeto, a equipe foi dividida em duas grandes frentes:
+
+### Front-end
+
+- Desenvolvimento da interface pública e responsiva do site.
+- Criação de uma tela de agendamento intuitiva para o cliente.
+- Construção da interface administrativa (painel interno).
+- Foco na experiência do usuário (UX/UI) para clientes e administradores.
+- Consumo da API REST e validação de dados no lado do cliente.
+
+### Back-end
+
+- Modelagem do banco de dados relacional.
+- Implementação das regras de negócio de agendamento e disponibilidade.
+- Criação e estruturação da API REST.
+- Controle de autenticação, autorização e segurança dos dados.
+- Gestão e lógica de mudança de status dos agendamentos.
+
+---
+
+## Tecnologias Sugeridas
+
+| Camada             | Tecnologias Recomendadas                           |
+| :----------------- | :------------------------------------------------- |
+| **Front-end**      | React, Vue.js ou HTML5 / CSS3 / JavaScript Vanilla |
+| **Back-end**       | Python                                             |
+| **Banco de Dados** | PostgreSQL ou MySQL                                |
+| **Versionamento**  | Git e GitHub                                       |
+| **Metodologia**    | Scrum ou Kanban                                    |
+
+---
+
+## Resultado Esperado (Final de 3 Meses)
+
+Ao encerramento da residência, os seguintes artefatos devem ser entregues:
+
+1. **Sistema Funcional:** Aplicação rodando de ponta a ponta (MVP).
+2. **Código Organizado:** Repositório limpo, versionado e seguindo boas práticas de Git.
+3. **Documentação:** Este README.md atualizado com as instruções de instalação + documentação clara da API.
