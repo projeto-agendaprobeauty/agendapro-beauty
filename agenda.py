@@ -5,7 +5,7 @@ class Agenda(BaseModel):
     status: str
     horario_inicial: str
     horario_final: str 
-    data: str = Field(min_length=10, max_length=10)
+    data: int
     cliente_id: int 
     profissional_id: int 
     servico_id: int 
