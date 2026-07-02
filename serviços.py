@@ -1,12 +1,8 @@
-from sqlalchemy import Column, Integer, String
-from banco_dados import Base
+from pydantic import BaseModel, Field, EmailStr
 
-class Servico(Base):
-    __tablename__ = "servicos"
 
-    id = Column(Integer, primary_key=True, index=True)
-    nome_servico = Column(String(100), nullable=False)
-    descricao = Column(String(200), nullable=False)
-    valor = Column(String(20), nullable=False)
-     
-
+class Servico(BaseModel):
+    nome_servico: str = Field(min_length=2)
+    descricao: str = Field(min_length=2)
+    valor: float = Field(gt=0)
+    servico_id: int
