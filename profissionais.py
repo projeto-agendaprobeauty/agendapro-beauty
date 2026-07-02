@@ -1,12 +1,8 @@
-from sqlalchemy import Column, Integer, String
-from banco_dados import Base
+from pydantic import BaseModel, Field, EmailStr
 
-class Profissional(Base):
-    __tablename__ = "profissionais"
 
-    id = Column(Integer, primary_key=True, index=True)
-    nome_profissional = Column(String(100), nullable=False)
-    telefone = Column(String(20), nullable=False)
-    email = Column(String(150), unique=True, nullable=False)
-      
-
+class Profissional(BaseModel):
+    nome_profissional: str = Field(min_length=2)
+    email: str
+    horario_inicial: str 
+    horario_final: str 

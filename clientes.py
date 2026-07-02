@@ -1,10 +1,7 @@
-from sqlalchemy import Column, Integer, String
-from banco_dados import Base
+from pydantic import BaseModel, Field, EmailStr
 
-class Cliente(Base):
-    __tablename__ = "clientes"
-
-    id = Column(Integer, primary_key=True, index=True)
-    nome_cliente = Column(String(100), nullable=False)
-    telefone = Column(String(20), nullable=False)
-    email = Column(String(150), unique=True, nullable=False)
+# Schema de Cliente
+class Cliente(BaseModel):
+    nome_cliente: str = Field(min_length=2)
+    email: str
+    cidade: str
