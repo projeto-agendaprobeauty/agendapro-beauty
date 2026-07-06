@@ -58,6 +58,7 @@ CREATE TABLE servico
   nome      varchar(20)  NOT NULL,
   descricao varchar(200) NOT NULL,
   duracao   interval     NOT NULL,
+  preco     decimal(10,2) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -95,3 +96,8 @@ ALTER TABLE agenda
   ADD CONSTRAINT FK_servico_TO_agenda
     FOREIGN KEY (servico_id)
     REFERENCES servico (id);
+
+ALTER TABLE servico
+  ADD CONSTRAINT FK_area_TO_servico
+    FOREIGN KEY (area_id)
+    REFERENCES area (id);
