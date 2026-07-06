@@ -6,9 +6,27 @@ from sqlalchemy import create_engine, text
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 router = APIRouter(prefix='/cliente', tags=['Cliente'])
+from ..classes.cliente import Cliente
 
 # Create
-
+@router.post('')
+def insert_cliente(cliente :Cliente):
+    engine = create_engine(DATABASE_URL)
+    try:
+        with engine.begin() as con: 
+            sql = """INSERT INTO public.cliente
+                                (nome, email, telefone)
+                        VALUES ( :nome, :email, :telefone)"""            
+            dados = {
+                "nome" : cliente.nome,
+                "email": cliente.email,
+                "telefone": cliente.telefone
+            }
+            con.execute(text(sql), dados)
+    except Exception as erro:
+        return erro
+    engine.dispose()
+    return 'Cliente cadastrado com sucesso!'
 # Read (todos os clientes)
 @router.get('')
 def select_clientes():
