@@ -58,7 +58,27 @@ def search_cliente(id : int):
     engine.dispose()
     return result._mapping
 # Update
-
+@router.put('/{id}')
+def update_cliente(id: int, cliente :Cliente):
+    engine = create_engine(DATABASE_URL)
+    try:
+        with engine.begin() as con: 
+            sql = """UPDATE public.cliente
+                    SET nome = :nome, 
+                        email = :email, 
+                        telefone = :telefone
+                    WHERE id = :id"""            
+            dados = {
+                "id": id, 
+                "nome": cliente.nome,
+                "email": cliente.email,
+                "telefone": cliente.telefone
+            }
+            con.execute(text(sql), dados)
+    except Exception as erro:
+        return erro
+    engine.dispose()
+    return 'Cliente atualizado com sucesso!'
 # Delete
 @router.delete('/{id}')
 def delete_cliente(id : int):
