@@ -24,7 +24,7 @@ CREATE TABLE cliente
   id       serial        NOT NULL,
   nome     varchar(30)   NOT NULL,
   email    varchar(40)   NOT NULL UNIQUE,
-  telefone numeric(11,0) NOT NULL UNIQUE,
+  telefone char(11) NOT NULL UNIQUE,
   PRIMARY KEY (id)
 );
 

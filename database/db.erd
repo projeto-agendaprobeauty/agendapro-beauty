@@ -507,18 +507,18 @@
         "tableId": "EydF8ueAwpDzxg6gyk508",
         "name": "telefone",
         "comment": "",
-        "dataType": "numeric(11,0)",
+        "dataType": "char(11)",
         "default": "",
         "options": 12,
         "ui": {
           "keys": 0,
           "widthName": 60,
           "widthComment": 60,
-          "widthDataType": 74,
+          "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1782828092144,
+          "updateAt": 1783001333896,
           "createAt": 1782828073869
         }
       },

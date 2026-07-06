@@ -1,8 +1,9 @@
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
+from routers.cliente import router as cliente_router
 
 app = FastAPI()
-
+app.include_router(cliente_router)
 @app.get('/')
 def index():
     return {"Hello" : "World"}
