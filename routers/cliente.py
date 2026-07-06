@@ -16,7 +16,7 @@ def select_clientes():
     try:
         with engine.connect() as con:
             sql = """SELECT nome, email, telefone 
-                     FROM cliente"""
+                    FROM cliente"""
             response = con.execute(text(sql))
             result = response.mappings().all()
     except Exception as e:
@@ -31,8 +31,8 @@ def search_cliente(id : int):
     try:
         with engine.connect() as con:
             sql = """SELECT nome, email, telefone 
-                     FROM cliente 
-                     WHERE id = :id"""
+                    FROM cliente 
+                    WHERE id = :id"""
             response = con.execute(text(sql), {"id": id})
             result = response.fetchone()
     except Exception as e:
@@ -48,7 +48,7 @@ def delete_cliente(id : int):
     try:
         with engine.begin() as con:
             sql = """DELETE FROM cliente
-                     WHERE id=:id;"""
+                    WHERE id=:id;"""
             con.execute(text(sql), {"id": id})
             return 'Cliente deletado com sucesso!'
     except Exception as e:
