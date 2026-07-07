@@ -3,7 +3,7 @@ from datetime import time
 
 
 class Profissional(BaseModel):
-    nome_profissional: str = Field(min_length=3)
+    nome: str = Field(min_length=3)
     email: EmailStr
-    horario_inicial: time
-    horario_final: time
+    horario_inicio: time
+    horario_fim: time

@@ -6,4 +6,3 @@ class Servico(BaseModel):
     descricao: str = Field(min_length=10)
     duracao: int = Field(gt=0)
     preco: float = Field(gt=0)
-    
