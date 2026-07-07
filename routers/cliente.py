@@ -1,12 +1,12 @@
 import os
 from fastapi import APIRouter
 from dotenv import load_dotenv
+from classes.cliente import Cliente
 from sqlalchemy import create_engine, text
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 router = APIRouter(prefix='/cliente', tags=['Cliente'])
-from classes.cliente import Cliente
 
 # Create
 @router.post('')
