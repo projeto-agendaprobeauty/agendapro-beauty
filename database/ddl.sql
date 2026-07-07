@@ -24,7 +24,7 @@ CREATE TABLE cliente
   id       serial        NOT NULL,
   nome     varchar(30)   NOT NULL,
   email    varchar(40)   NOT NULL UNIQUE,
-  telefone numeric(11,0) NOT NULL UNIQUE,
+  telefone char(11) NOT NULL UNIQUE,
   PRIMARY KEY (id)
 );
 
@@ -58,6 +58,8 @@ CREATE TABLE servico
   nome      varchar(20)  NOT NULL,
   descricao varchar(200) NOT NULL,
   duracao   interval     NOT NULL,
+  preco     decimal(10,2) NOT NULL,
+  area_id   serial        NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -95,3 +97,8 @@ ALTER TABLE agenda
   ADD CONSTRAINT FK_servico_TO_agenda
     FOREIGN KEY (servico_id)
     REFERENCES servico (id);
+
+ALTER TABLE servico
+  ADD CONSTRAINT FK_area_TO_servico
+    FOREIGN KEY (area_id)
+    REFERENCES area (id);
