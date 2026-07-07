@@ -18,11 +18,11 @@ def cadastrar_agendamento(agenda :Agenda):
     try:
         with engine.begin() as con: 
             sql = """INSERT INTO public.agenda
-                    (status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id)
-                VALUES ( :status, :horario_inicio, :horario_fim, :data, :cliente_id, :profissional_id, :servico_id)"""            
+                    (status, horario_inicial, horario_fim, data, cliente_id, profissional_id, servico_id)
+                VALUES ( :status, :horario_inicial, :horario_fim, :data, :cliente_id, :profissional_id, :servico_id)"""            
             dados = {
                 "status": agenda.status,
-                "horario_inicio": agenda.horario_inicio,
+                "horario_inicial": agenda.horario_inicial,
                 "horario_fim": agenda.horario_fim,
                 "data": agenda.data,
                 "cliente_id": agenda.cliente_id,
@@ -41,7 +41,7 @@ def listar_agendamentos():
     
     try:
         with engine.connect() as con:
-            sql = """SELECT status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id 
+            sql = """SELECT status, horario_inicial, horario_fim, data, cliente_id, profissional_id, servico_id 
                     FROM agenda"""
             response = con.execute(text(sql))
             result = response.mappings().all()
@@ -57,7 +57,7 @@ def buscar_agendamento(id : int):
     
     try:
         with engine.connect() as con:
-            sql = """SELECT status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id
+            sql = """SELECT status, horario_inicial, horario_fim, data, cliente_id, profissional_id, servico_id
                     FROM agenda
                     WHERE id = :id"""
             response = con.execute(text(sql), {"id": id})
@@ -74,7 +74,7 @@ def atualizar_agendamento(id: int, agenda :Agenda):
         with engine.begin() as con: 
             sql = """UPDATE public.agenda
                     SET status = :status,
-                        horario_inicio = :horario_inicio,
+                        horario_inicial = :horario_inicial,
                         horario_fim = :horario_fim,
                         data = :data,
                         cliente_id = :cliente_id,
@@ -84,7 +84,7 @@ def atualizar_agendamento(id: int, agenda :Agenda):
             dados = {
                 "id": id,
                 "status": agenda.status,
-                "horario_inicio": agenda.horario_inicio,
+                "horario_inicial": agenda.horario_inicial,
                 "horario_fim": agenda.horario_fim,
                 "data": agenda.data,
                 "cliente_id": agenda.cliente_id,
