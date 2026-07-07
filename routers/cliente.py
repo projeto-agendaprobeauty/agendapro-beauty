@@ -6,7 +6,7 @@ from sqlalchemy import create_engine, text
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 router = APIRouter(prefix='/cliente', tags=['Cliente'])
-from ..classes.cliente import Cliente
+from classes.cliente import Cliente
 
 # Create
 @router.post('')
@@ -29,7 +29,7 @@ def insert_cliente(cliente :Cliente):
     return 'Cliente cadastrado com sucesso!'
 # Read (todos os clientes)
 @router.get('')
-def select_clientes():
+def select_cliente():
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
