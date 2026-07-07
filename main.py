@@ -4,6 +4,7 @@ from routers.cliente import router as cliente_router
 from routers.agenda import router as agenda_router
 
 app = FastAPI()
+
 app.include_router(cliente_router)
 app.include_router(agenda_router)
 
