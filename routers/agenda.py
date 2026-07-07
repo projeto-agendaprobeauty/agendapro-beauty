@@ -5,6 +5,7 @@ from sqlalchemy import create_engine, text
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
+
 router = APIRouter(prefix='/agenda', tags=['Agenda'])
 from classes.agenda import Agenda
 
@@ -108,5 +109,4 @@ def deletar_agendamento(id : int):
             return 'Agendamento deletado com sucesso!'
     except Exception as e:
         return e
-    
     
