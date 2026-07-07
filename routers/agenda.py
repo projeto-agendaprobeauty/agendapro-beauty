@@ -4,6 +4,11 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 
 load_dotenv()
+
+print("Diretório atual:", os.getcwd())
+print("DATABASE_URL:", os.getenv("DATABASE_URL"))
+
+
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 router = APIRouter(prefix='/agenda', tags=['Agenda'])
