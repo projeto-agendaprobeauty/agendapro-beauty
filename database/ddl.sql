@@ -59,6 +59,7 @@ CREATE TABLE servico
   descricao varchar(200) NOT NULL,
   duracao   interval     NOT NULL,
   preco     decimal(10,2) NOT NULL,
+  area_id   serial        NOT NULL,
   PRIMARY KEY (id)
 );
 
