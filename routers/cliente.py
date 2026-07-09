@@ -1,12 +1,12 @@
 import os
 from fastapi import APIRouter
 from dotenv import load_dotenv
+from classes.cliente import Cliente
 from sqlalchemy import create_engine, text
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 router = APIRouter(prefix='/cliente', tags=['Cliente'])
-from classes.cliente import Cliente
 
 # Create
 @router.post('')
@@ -53,8 +53,8 @@ def search_cliente(id : int):
                     WHERE id = :id"""
             response = con.execute(text(sql), {"id": id})
             result = response.fetchone()
-    except Exception as e:
-        return e
+    except Exception as erro:
+        return erro
     engine.dispose()
     return result._mapping
 # Update
@@ -89,6 +89,6 @@ def delete_cliente(id : int):
                     WHERE id=:id;"""
             con.execute(text(sql), {"id": id})
             return 'Cliente deletado com sucesso!'
-    except Exception as e:
-        return e
+    except Exception as erro:
+        return erro
     
