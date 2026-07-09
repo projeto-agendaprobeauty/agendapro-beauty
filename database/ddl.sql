@@ -80,13 +80,13 @@ ALTER TABLE profissional_servico
 
 ALTER TABLE profissional_area
   ADD CONSTRAINT FK_profissional_TO_profissional_area
-    FOREIGN KEY (area_id)
+    FOREIGN KEY (profissional_id)
     REFERENCES profissional (id);
 
 ALTER TABLE profissional_area
   ADD CONSTRAINT FK_area_TO_profissional_area
-    FOREIGN KEY (profissional_id)
-    REFERENCES area (id);
+    FOREIGN KEY (area_id)
+    REFERENCES area(id);
 
 ALTER TABLE agenda
   ADD CONSTRAINT FK_profissional_TO_agenda
