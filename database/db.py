@@ -13,7 +13,7 @@ with open('dml.sql', encoding='utf8') as arquivo:
 
 engine = create_engine(DATABASE_URL)
 with engine.begin() as con:
-    con.execute(text('DROP SCHEMA IF EXISTS public CASCADE;; CREATE SCHEMA public;'))
+    con.execute(text('DROP SCHEMA IF EXISTS public CASCADE; CREATE SCHEMA public;'))
     con.execute(text(createSQL))
     con.execute(text(insertSQL))
     engine.dispose()
