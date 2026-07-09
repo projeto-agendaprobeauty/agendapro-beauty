@@ -24,8 +24,8 @@ def cadastrar_agendamento(agenda :Agenda):
         with engine.begin() as con:
              
             sql = """INSERT INTO public.agenda
-                    (status, horario_inicial, horario_fim, data, cliente_id, profissional_id, servico_id)
-                VALUES ( :status, :horario_inicial, :horario_fim, :data, :cliente_id, :profissional_id, :servico_id)"""            
+                    (status, horario_inicial, horario_final, data, cliente_id, profissional_id, servico_id)
+                VALUES ( :status, :horario_inicial, :horario_final, :data, :cliente_id, :profissional_id, :servico_id)"""            
             dados = {
                 "status": agenda.status,
                 "horario_inicial": agenda.horario_inicial,
@@ -52,7 +52,7 @@ def listar_agendamentos():
     
     try:
         with engine.connect() as con:
-            sql = """SELECT status, horario_inicial, horario_fim, data, cliente_id, profissional_id, servico_id 
+            sql = """SELECT status, horario_inicial, horario_final, data, cliente_id, profissional_id, servico_id 
                     FROM agenda"""
             response = con.execute(text(sql))
             result = response.mappings().all()
