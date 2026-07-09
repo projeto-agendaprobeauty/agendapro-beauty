@@ -29,7 +29,7 @@ def cadastrar_agendamento(agenda :Agenda):
             dados = {
                 "status": agenda.status,
                 "horario_inicial": agenda.horario_inicial,
-                "horario_final": agenda.horario_fim,
+                "horario_final": agenda.horario_final,
                 "data": agenda.data,
                 "cliente_id": agenda.cliente_id,
                 "profissional_id": agenda.profissional_id,
