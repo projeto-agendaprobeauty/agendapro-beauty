@@ -21,7 +21,8 @@ engine = create_engine(DATABASE_URL)
 def cadastrar_agendamento(agenda :Agenda):
     
     try:
-        with engine.begin() as con: 
+        with engine.begin() as con:
+             
             sql = """INSERT INTO public.agenda
                     (status, horario_inicial, horario_fim, data, cliente_id, profissional_id, servico_id)
                 VALUES ( :status, :horario_inicial, :horario_fim, :data, :cliente_id, :profissional_id, :servico_id)"""            
@@ -34,7 +35,10 @@ def cadastrar_agendamento(agenda :Agenda):
                 "profissional_id": agenda.profissional_id,
                 "servico_id": agenda.servico_id
             }
-            con.execute(text(sql), dados)
+
+            resultado = con.execute(text(sql), dados)
+            print("Linhas afetadas:", resultado.rowcount)
+
     except Exception as erro:
         return erro
     engine.dispose()
