@@ -5,23 +5,23 @@ from sqlalchemy import create_engine, text
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
-router = APIRouter(prefix='/servico', tags=['Serviço'])
+router = APIRouter(prefix='/servicos', tags=['Servicos'])
 
 from classes.servico import Servico
 
 #CREATE
 @router.post('')
-def cadastrar_servico(servico :Servico):
+def cadastrar_servicos(servicos :Servicos):
   engine = create_engine(DATABASE_URL)
   try:
         with engine.begin() as con:
             sql = """ INSERT INTO public.servico (nome, preco, duracao, id_area)
                     VALUES(:nome, :preco, :duracao, :id_area);"""
             dados = {
-              "nome": servico.nome,
-              "preco": servico.preco,
-              "duracao": servico.duracao,
-              "id_area": servico.id_area
+              "nome": servicos.nome,
+              "preco": servicos.preco,
+              "duracao": servicos.duracao,
+              "id_area": servicos.id_area
             }
             con.execute(text(sql),dados)
   except Exception as erro:
@@ -57,7 +57,7 @@ def consultar_servico_por_id(id : int):
     return result._mapping
 
 @router.put('/{id}')
-def atualizar_servico(id : int, servico : Servico):    
+def atualizar_servicos(id : int, servicos : Servicos):    
     engine = create_engine(DATABASE_URL)
     try:
         with engine.begin() as con:
@@ -66,10 +66,10 @@ def atualizar_servico(id : int, servico : Servico):
                     WHERE id = :id;"""
             dados = {
               "id": id,
-              "nome": servico.nome,
-              "preco": servico.preco,
-              "duracao": servico.duracao,
-              "id_area": servico.id_area
+              "nome": servicos.nome,
+              "preco": servicos.preco,
+              "duracao": servicos.duracao,
+              "id_area": servicos.id_area
             }
             con.execute(text(sql),dados)
     except Exception as erro:
