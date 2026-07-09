@@ -63,7 +63,6 @@ def search_profissional(id : int):
 #UPDATE
 @router.put('/{id}')
 def update_profissional(id: int, profissional :Profissional):
-    print ("entreii")
     engine = create_engine(DATABASE_URL)
     try:
         with engine.begin() as con: 
@@ -73,7 +72,6 @@ def update_profissional(id: int, profissional :Profissional):
                         horario_inicio = :horario_inicio,
                         horario_fim = :horario_fim
                     WHERE id = :id"""     
-            print(profissional)       
             dados = {
                 "id": id,
                 "nome": profissional.nome,
