@@ -68,7 +68,7 @@ def buscar_agendamento(id : int):
     
     try:
         with engine.connect() as con:
-            sql = """SELECT status, horario_inicial, horario_fim, data, cliente_id, profissional_id, servico_id
+            sql = """SELECT status, horario_inicial, horario_final, data, cliente_id, profissional_id, servico_id
                     FROM agenda
                     WHERE id = :id"""
             response = con.execute(text(sql), {"id": id})
@@ -86,7 +86,7 @@ def atualizar_agendamento(id: int, agenda :Agenda):
             sql = """UPDATE public.agenda
                     SET status = :status,
                         horario_inicial = :horario_inicial,
-                        horario_fim = :horario_fim,
+                        horario_final = :horario_final,
                         data = :data,
                         cliente_id = :cliente_id,
                         profissional_id = :profissional_id,
@@ -96,7 +96,7 @@ def atualizar_agendamento(id: int, agenda :Agenda):
                 "id": id,
                 "status": agenda.status,
                 "horario_inicial": agenda.horario_inicial,
-                "horario_fim": agenda.horario_fim,
+                "horario_final": agenda.horario_final,
                 "data": agenda.data,
                 "cliente_id": agenda.cliente_id,
                 "profissional_id": agenda.profissional_id,
