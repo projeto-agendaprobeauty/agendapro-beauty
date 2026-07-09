@@ -5,6 +5,7 @@ from routers.agenda import router as agenda_router
 from routers.profissional import router as profissional_router
 from routers.area import router as area_router
 from routers.servico import router as servico_router
+from routers.serviços import router as servico_router
 
 app = FastAPI()
 
