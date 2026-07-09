@@ -40,7 +40,9 @@ def cadastrar_agendamento(agenda :Agenda):
             print("Linhas afetadas:", resultado.rowcount)
 
     except Exception as erro:
-        return erro
+        print("ERRO:", erro)
+        return {"erro": str(erro)}
+        
     engine.dispose()
     return 'Agendamento cadastrado com sucesso!'
 
