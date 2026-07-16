@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, text
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
 router = APIRouter(prefix='/servico', tags=['Servico'])
+
 from classes.servico import Servico
 
 #CREATE
@@ -28,7 +29,6 @@ def insert_servico(servico :Servico):
         return erro
     engine.dispose()
     return 'Serviço cadastrado com sucesso!'
-  
 #READ
 @router.get('')
 def select_servico():
@@ -43,7 +43,7 @@ def select_servico():
         return erro
     engine.dispose()
     return result
-  
+
 #READ (buscar servico por id)
 @router.get('/{id}')
 def search_servico(id : int):
@@ -81,12 +81,11 @@ def update_servico(id: int, servico :Servico):
                 "preco": servico.preco,
                 "area_id": servico.area_id
             }
-            con.execute(text(sql), dados)
+            con.execute(text(sql),dados)
     except Exception as erro:
-        return "erro:"+erro
+        return erro
     engine.dispose()
     return 'Serviço atualizado com sucesso!'
-
 #DELETE
 @router.delete('/{id}')
 def delete_servico(id : int):
