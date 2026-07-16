@@ -4,7 +4,6 @@ from datetime import date, time
 class Agenda(BaseModel):
     status: str
     horario_inicial: time
-    horario_final: time
     data: date
     cliente_id: int 
     profissional_id: int 

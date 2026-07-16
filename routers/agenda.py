@@ -19,11 +19,11 @@ engine = create_engine(DATABASE_URL)
 #Create
 @router.post('')
 def cadastrar_agendamento(agenda :Agenda):
-    
     try:
         with engine.begin() as con:
-             
-            sql = """INSERT INTO public.agenda
+            sql = """SELECT duracao FROM servico WHERE id = :id_servico"""
+            response = con.execute(sql, {"id_servico" : agenda.servico_id})     
+            sql = """INSERT INTO public.agenda 
                     (status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id)
                 VALUES ( :status, :horario_inicial, :horario_final, :data, :cliente_id, :profissional_id, :servico_id)"""            
             dados = {
