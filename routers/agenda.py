@@ -121,3 +121,24 @@ def deletar_agendamento(id : int):
     except Exception as e:
         return e
     
+#escolher serviços
+@router.get("/opçoes_servico")
+def listar_servicos():
+    try:
+        with engine.connect() as con:
+            sql = """SELECT 
+                p.id AS profissional_id,
+                p.nome AS profissional_nome,
+                s.id AS servico_id,
+                s.nome AS servico_nome,
+                s.valor AS servico_preco
+            FROM profissional_servico ps
+            JOIN profissional p ON ps.profissional_id = p.id
+            JOIN servico s ON ps.servico_id = s.id;"""
+
+            response = con.execute(text(sql))
+            result = response.mappings().all()
+    except Exception as e:
+        return e
+    engine.dispose()
+    return result
