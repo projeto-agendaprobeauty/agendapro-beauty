@@ -6,9 +6,9 @@ CREATE TABLE agenda
   horario_inicio  time        NOT NULL,
   horario_fim     time        NOT NULL,
   data            date        NOT NULL,
-  cliente_id      serial      NOT NULL,
-  profissional_id serial      NOT NULL,
-  servico_id      serial      NOT NULL,
+  cliente_id      integer      NOT NULL,
+  profissional_id integer      NOT NULL,
+  servico_id      integer      NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -21,47 +21,56 @@ CREATE TABLE area
 
 CREATE TABLE cliente
 (
-  id       serial        NOT NULL,
-  nome     varchar(30)   NOT NULL,
-  email    varchar(40)   NOT NULL UNIQUE,
-  telefone char(11) NOT NULL UNIQUE,
+  id          serial        NOT NULL,
+  usuario_id  integer       NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE profissional
 (
   id             serial      NOT NULL,
-  nome           varchar(30) NOT NULL,
-  email          varchar(40) NOT NULL UNIQUE,
   horario_inicio time        NOT NULL,
   horario_fim    time        NOT NULL,
+  usuario_id     integer     NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE profissional_area
 (
-  area_id         serial NOT NULL,
-  profissional_id serial NOT NULL,
+  area_id         integer NOT NULL,
+  profissional_id integer NOT NULL,
   PRIMARY KEY (area_id, profissional_id)
 );
 
 CREATE TABLE profissional_servico
 (
-  profissional_id serial NOT NULL,
-  servico_id      serial NOT NULL,
+  profissional_id integer NOT NULL,
+  servico_id      integer NOT NULL,
   PRIMARY KEY (profissional_id, servico_id)
 );
 
 CREATE TABLE servico
 (
-  id        serial       NOT NULL,
-  nome      varchar(20)  NOT NULL,
-  descricao varchar(200) NOT NULL,
-  duracao   int     NOT NULL,
+  id        serial        NOT NULL,
+  nome      varchar(20)   NOT NULL,
+  descricao varchar(200)  NOT NULL,
+  duracao   int           NOT NULL,
   preco     decimal(10,2) NOT NULL,
-  area_id   serial        NOT NULL,
+  area_id   integer       NOT NULL,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE usuario
+(
+  id        serial        NOT NULL,
+  nome      varchar(100)  NOT NULL,
+  senha     varchar(250)  NOT NULL,
+  email     varchar(40)   NOT NULL UNIQUE,
+  telefone  char(11)      NOT NULL UNIQUE,
+  PRIMARY KEY (id)
+);
+
+
 
 ALTER TABLE agenda
   ADD CONSTRAINT FK_cliente_TO_agenda
@@ -102,3 +111,13 @@ ALTER TABLE servico
   ADD CONSTRAINT FK_area_TO_servico
     FOREIGN KEY (area_id)
     REFERENCES area (id);
+
+ALTER TABLE cliente
+  ADD	 CONSTRAINT FK_usuario_TO_cliente
+    foreign key (usuario_id)
+    references usuario (id);
+
+ALTER TABLE profissional
+  ADD	 CONSTRAINT FK_usuario_TO_profissional
+    foreign key (usuario_id)
+    references usuario (id);
