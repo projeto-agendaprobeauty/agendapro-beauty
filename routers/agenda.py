@@ -24,7 +24,7 @@ def cadastrar_agendamento(agenda :Agenda):
         with engine.begin() as con:
              
             sql = """INSERT INTO public.agenda
-                    (status, horario_inicial, horario_final, data, cliente_id, profissional_id, servico_id)
+                    (status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id)
                 VALUES ( :status, :horario_inicial, :horario_final, :data, :cliente_id, :profissional_id, :servico_id)"""            
             dados = {
                 "status": agenda.status,
@@ -52,7 +52,7 @@ def listar_agendamentos():
     
     try:
         with engine.connect() as con:
-            sql = """SELECT status, horario_inicial, horario_final, data, cliente_id, profissional_id, servico_id 
+            sql = """SELECT status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id 
                     FROM agenda"""
             response = con.execute(text(sql))
             result = response.mappings().all()
@@ -68,7 +68,7 @@ def buscar_agendamento(id : int):
     
     try:
         with engine.connect() as con:
-            sql = """SELECT status, horario_inicial, horario_final, data, cliente_id, profissional_id, servico_id
+            sql = """SELECT status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id
                     FROM agenda
                     WHERE id = :id"""
             response = con.execute(text(sql), {"id": id})
@@ -85,8 +85,8 @@ def atualizar_agendamento(id: int, agenda :Agenda):
         with engine.begin() as con: 
             sql = """UPDATE public.agenda
                     SET status = :status,
-                        horario_inicial = :horario_inicial,
-                        horario_final = :horario_final,
+                        horario_inicio = :horario_inicial,
+                        horario_fim = :horario_final,
                         data = :data,
                         cliente_id = :cliente_id,
                         profissional_id = :profissional_id,
