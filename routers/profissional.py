@@ -21,7 +21,8 @@ def insert_profissional(profissional :Profissional):
             "nome": profissional.nome,
             "email":profissional.email,
             "horario_inicio": profissional.horario_inicio,
-            "horario_fim": profissional.horario_fim
+            "horario_fim": profissional
+            #usuario id
             }
             con.execute(text(sql),dados)
     except Exception as erro:

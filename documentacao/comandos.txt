@@ -1,1 +1,17 @@
 git merge origin/develop
+
+
+=> last insert id
+from sqlalchemy import create_engine, text
+
+engine = create_engine("postgresql://usuario:senha@localhost:5432/meu_banco")
+
+# Certifique-se de usar a cláusula RETURNING id_da_coluna
+query = text("INSERT INTO usuarios (nome, email) VALUES (:nome, :email) RETURNING id")
+
+with engine.connect() as conn:
+    # .scalar() já executa e retorna diretamente o valor da primeira coluna da primeira linha
+    novo_id = conn.execute(query, {"nome": "Lucas", "email": "lucas@email.com"}).scalar()
+    conn.commit()
+
+print(f"O último ID inserido foi: {novo_id}")
