@@ -122,7 +122,7 @@ def deletar_agendamento(id : int):
         return e
     
 #escolher serviços
-@router.get("/opçoes_servico")
+@router.get("/opcoes_servico")
 def listar_servicos():
     try:
         with engine.connect() as con:
