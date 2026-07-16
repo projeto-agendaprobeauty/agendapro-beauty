@@ -27,13 +27,13 @@
 ## Administrador
 
 - [ ] Criar rotas CUD para **profissional área** -> emilli ta fazendo
-  - [ ] Create
+  - [x] Create
   - [ ] Update
-  - [ ] Delete
-- [ ] Criar rotas CUD para **profissional serviço**
-  - [ ] Create
+  - [x] Delete
+- [ ] Criar rotas CUD para **profissional serviço** -> emilli ta fazendo
+  - [x] Create
   - [ ] Update
-  - [ ] Delete
+  - [x] Delete
 
 ---
 
