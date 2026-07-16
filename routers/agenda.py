@@ -49,13 +49,38 @@ def cadastrar_agendamento(agenda :Agenda):
 # Read (todos os agendamentos)
 @router.get('')
 def listar_agendamentos():
-    
     try:
         with engine.connect() as con:
-            sql = """SELECT status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id 
-                    FROM agenda"""
+            # AO INVÉS DE EXIBIR OS IDS, EXIBE OS NOMES DO PROFISSIONAL, CLIENTE E DO SERVIÇO
+            sql = """SELECT a.id, a.cliente_id, cliente.nome as cliente_nome, a.servico_id, servico.nome as servico_nome, a.profissional_id, profissional.nome as profissional_nome, data, a.horario_inicio, a.horario_fim, status
+                    FROM agenda a JOIN cliente ON a.cliente_id = cliente.id 
+                    JOIN profissional ON a.profissional_id = profissional.id
+                    join servico ON a.servico_id = servico.id
+					ORDER BY data ASC;"""
             response = con.execute(text(sql))
-            result = response.mappings().all()
+            result = []
+            for row in response:
+                linha = row._mapping
+                agenda = {
+                    linha['id']: {
+                        "cliente": {
+                            "id": linha['cliente_id'],
+                            "nome": linha['cliente_nome']
+                        },
+                        "servico": {
+                            "id": linha['servico_id'],
+                            "nome": linha['servico_nome']
+                        },
+                        "profissional": {
+                            "id": linha['profissional_id'],
+                            "nome": linha['profissional_nome']
+                        },
+                        "inicio": linha['horario_inicio'],
+                        "fim": linha['horario_fim'],
+                        "status": linha['status']
+                    }
+                }
+                result.append(agenda)
     except Exception as e:
         return e
     engine.dispose()
@@ -68,15 +93,36 @@ def buscar_agendamento(id : int):
     
     try:
         with engine.connect() as con:
-            sql = """SELECT status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id
-                    FROM agenda
-                    WHERE id = :id"""
+            sql = """SELECT a.id, a.cliente_id, cliente.nome as cliente_nome, a.servico_id, servico.nome as servico_nome, a.profissional_id, profissional.nome as profissional_nome, data, a.horario_inicio, a.horario_fim, status
+                    FROM agenda a JOIN cliente ON a.cliente_id = cliente.id 
+                    JOIN profissional ON a.profissional_id = profissional.id
+                    join servico ON a.servico_id = servico.id
+                    WHERE a.id = :id
+					ORDER BY data ASC;"""
             response = con.execute(text(sql), {"id": id})
-            result = response.fetchone()
+            row = response.fetchone()
+            linha = row._mapping
+            result = {
+                    "cliente": {
+                        "id": linha['cliente_id'],
+                        "nome": linha['cliente_nome']
+                    },
+                    "servico": {
+                        "id": linha['servico_id'],
+                        "nome": linha['servico_nome']
+                    },
+                    "profissional": {
+                        "id": linha['profissional_id'],
+                        "nome": linha['profissional_nome']
+                    },
+                    "inicio": linha['horario_inicio'],
+                    "fim": linha['horario_fim'],
+                    "status": linha['status']
+            }
     except Exception as e:
         return e
     engine.dispose()
-    return result._mapping
+    return result
     
 @router.put('/{id}')
 def atualizar_agendamento(id: int, agenda :Agenda):
