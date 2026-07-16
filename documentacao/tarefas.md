@@ -2,7 +2,7 @@
 
 ## Cliente
 
-- [ ] Login
+- [ ] Login -> emilli fazendo
 - [ ] Logout
 - [ ] Visualizar e editar seus próprios dados
 - [ ] Após login, ser redirecionado para uma lista de serviços
@@ -17,7 +17,7 @@
 ## Profissional
 
 - [ ] Visualizar serviços nos quais foi contratado
-- [ ] Fazer agenda profissional:
+- [ ] Fazer agenda profissional: -> davi ta fazendo
   - [ ] Criar tabela nova no banco
   - [ ] Ajustar relacionamento com a tabela AGENDA
   - [ ] Colocar os dias e horários por mês que irá trabalhar
@@ -26,18 +26,16 @@
 
 ## Administrador
 
-- [ ] Criar rotas CUD para **profissional área** -> emilli ta fazendo
+- [x] Criar rotas CD para **profissional área** -> emilli ta feito
   - [x] Create
-  - [ ] Update
   - [x] Delete
-- [ ] Criar rotas CUD para **profissional serviço** -> emilli ta fazendo
+- [x] Criar rotas CD para **profissional serviço** -> emilli ta feito
   - [x] Create
-  - [ ] Update
   - [x] Delete
 
 ---
 
 ## Observações
 
-- [ ] Aceitar apenas o serviço que o **Everton** fez
+- [x] Aceitar apenas o serviço que o **Everton** feito
 - [ ] Manter tudo no **singular** e **sem acentos** (padronização)
