@@ -52,13 +52,13 @@ def listar_servicos():
     try:
         with engine.connect() as con:
             sql = """SELECT 
-                p.profissional_id AS profissional_id,
+                p.id AS profissional_id,
                 p.nome AS profissional_nome,
                 s.id AS servico_id,
-                s.nome AS servico_nome,
-            FROM profissional_servico ps
-            JOIN profissional p ON ps.profissional_id = p.id
-            JOIN servico s ON ps.servico_id = s.id;"""
+                s.nome AS servico_nome
+        FROM profissional_servico ps
+        JOIN profissional p ON ps.profissional_id = p.id
+        JOIN servico s ON ps.servico_id = s.id;"""
 
             response = con.execute(text(sql))
             result = response.mappings().all()
