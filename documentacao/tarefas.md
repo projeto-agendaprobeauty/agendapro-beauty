@@ -26,7 +26,7 @@
 
 ## Administrador
 
-- [ ] Criar rotas CUD para **profissional área**
+- [ ] Criar rotas CUD para **profissional área** -> emilli ta fazendo
   - [ ] Create
   - [ ] Update
   - [ ] Delete
