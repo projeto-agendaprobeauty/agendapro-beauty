@@ -2,7 +2,7 @@
 
 ## Cliente
 
-- [ ] Login -> emilli fazendo
+- [ ] Login -> emilli fazendo ---- fazer tabela usuario e relacionar com cliente e profissional
 - [ ] Logout
 - [ ] Visualizar e editar seus próprios dados
 - [ ] Após login, ser redirecionado para uma lista de serviços
