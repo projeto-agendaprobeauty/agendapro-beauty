@@ -21,6 +21,7 @@ def insert_cliente(cliente :Cliente):
                 "nome" : cliente.nome,
                 "email": cliente.email,
                 "telefone": cliente.telefone
+                #usuario id
             }
             con.execute(text(sql), dados)
     except Exception as erro:

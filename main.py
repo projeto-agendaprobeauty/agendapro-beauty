@@ -6,6 +6,7 @@ from routers.profissional import router as profissional_router
 from routers.area import router as area_router
 from routers.servico import router as servico_router
 from routers.profissional_area import router as profissionalarea_router
+from routers.profissional_servico import router as profissionalservico_router
 app = FastAPI()
 
 app.include_router(cliente_router)
@@ -14,6 +15,7 @@ app.include_router(servico_router)
 app.include_router(profissional_router)
 app.include_router(area_router)
 app.include_router(profissionalarea_router)
+app.include_router(profissionalservico_router)
 
 @app.get('/')
 def index():
