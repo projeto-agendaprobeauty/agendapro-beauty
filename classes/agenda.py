@@ -14,3 +14,7 @@ class Agenda(BaseModel):
         if value == 'Marcado' or value == 'Cancelado' or value == 'Realizado':
             return value
         raise ValueError('Valor de status inválido')
+
+    @field_validator('horario_inicial')
+    def formataHorario(cls, value : time) -> time:
+        return value.strftime("%H:%M")
