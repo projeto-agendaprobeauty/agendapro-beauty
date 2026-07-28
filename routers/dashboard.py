@@ -30,7 +30,7 @@ def listar_dashboard():
                         JOIN servico s ON a.servico_id = s.id
                         GROUP BY s.nome
                         ORDER BY total DESC;"""
-            servico = con.execute(text(sql_servico))
+            resultado_servico = con.execute(text(sql_servico))
             servico = [dict(row._mapping) for row in resultado_servico]
 
             sql_profissionais = """SELECT p.nome, COUNT(*) AS total
@@ -38,7 +38,7 @@ def listar_dashboard():
                         JOIN profissionais p ON a.profissional_id = p.id
                         GROUP BY p.nome
                         ORDER BY total DESC;"""
-            profissionais = con.execute(text(sql_profissionais))
+            resultado_profissionais = con.execute(text(sql_profissionais))
             profissionais = [dict(row._mapping) for row in resultado_profissionais]
 
         return {
