@@ -1,17 +1,11 @@
-from pydantic import BaseModel, field_validator
-from datetime import date, time
+from datetime import date
+from pydantic import BaseModel
 
 class Agenda(BaseModel):
     status: str
-    horario_inicial: time
-    horario_final: time
+    horario_inicial: str
+    horario_final: str
     data: date
-    cliente_id: int 
-    profissional_id: int 
-    servico_id: int 
-
-    @field_validator('status')
-    def validaStatus(cls, value : str) -> str:
-        if value == 'Marcado' or value == 'Cancelado' or value == 'Realizado':
-            return value
-        raise ValueError('Valor de status inválido')
+    cliente_id: int
+    profissional_id: int
+    servico_id: int

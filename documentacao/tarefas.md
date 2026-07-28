@@ -6,7 +6,7 @@
 - [ ] Logout
 - [ ] Visualizar e editar seus próprios dados
 - [ ] Após login, ser redirecionado para uma lista de serviços
-- [ ] Escolher um serviço
+- [ ] Escolher um serviço -> everton esta fazendo 
 - [ ] Selecionar um dia
 - [ ] Visualizar profissionais que atuam naquela área e estão disponíveis naquele dia
 - [ ] Visualizar horários disponíveis junto com os profissionais
