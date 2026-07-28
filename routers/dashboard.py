@@ -27,7 +27,7 @@ def listar_dashboard():
 
             sql_servicos = """SELECT s.nome, COUNT(*) AS total
                         FROM agenda a
-                        JOIN servicos s ON a.servico_id = s.id
+                        JOIN servico s ON a.servico_id = s.id
                         GROUP BY s.nome
                         ORDER BY total DESC;"""
             resultado_servicos = con.execute(text(sql_servicos))
@@ -43,7 +43,7 @@ def listar_dashboard():
 
         return {
                 "total_agendamentos": total_agendamentos,
-                "servicos_mais_solicitados": servicos,
+                "servico_mais_solicitados": servicos,
                 "profissionais_mais_requisitados": profissionais
                 
            } 
