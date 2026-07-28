@@ -21,6 +21,7 @@
   - [ ] Criar tabela nova no banco
   - [ ] Ajustar relacionamento com a tabela AGENDA
   - [ ] Colocar os dias e horários por mês que irá trabalhar
+- [ ] Criar dashboarb para administrador -> everton fez 
 
 ---
 
