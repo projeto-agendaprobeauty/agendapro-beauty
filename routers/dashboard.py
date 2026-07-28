@@ -43,7 +43,7 @@ def listar_dashboard():
 
         return {
                 "total_agendamentos": total_agendamentos,
-                "servico_mais_solicitados": servicos,
+                "servico_mais_solicitados": servico,
                 "profissionais_mais_requisitados": profissionais
                 
            } 
