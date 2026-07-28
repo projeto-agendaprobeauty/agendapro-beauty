@@ -35,16 +35,16 @@ def listar_dashboard():
 
             sql_profissionais = """SELECT p.nome, COUNT(*) AS total
                         FROM agenda a
-                        JOIN profissionais p ON a.profissional_id = p.id
+                        JOIN profissional p ON a.profissional_id = p.id
                         GROUP BY p.nome
                         ORDER BY total DESC;"""
-            resultado_profissionais = con.execute(text(sql_profissionais))
-            profissionais = [dict(row._mapping) for row in resultado_profissionais]
+            resultado_profissional = con.execute(text(sql_profissionais))
+            profissional = [dict(row._mapping) for row in resultado_profissional]
 
         return {
                 "total_agendamentos": total_agendamentos,
                 "servico_mais_solicitados": servico,
-                "profissionais_mais_requisitados": profissionais
+                "profissional_mais_requisitados": profissional
                 
            } 
 
