@@ -25,12 +25,12 @@ def listar_dashboard():
             resultado_total = con.execute(text(sql_total))
             total_agendamentos = resultado_total.fetchone()._mapping["total"]
 
-            sql_servicos = """SELECT s.nome, COUNT(*) AS total
+            sql_servico = """SELECT s.nome, COUNT(*) AS total
                         FROM agenda a
                         JOIN servico s ON a.servico_id = s.id
                         GROUP BY s.nome
                         ORDER BY total DESC;"""
-            servicos = con.execute(text(sql_servicos))
+            servico = con.execute(text(sql_servico))
             servico = [dict(row._mapping) for row in resultado_servico]
 
             sql_profissionais = """SELECT p.nome, COUNT(*) AS total
