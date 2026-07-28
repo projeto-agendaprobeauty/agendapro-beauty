@@ -31,7 +31,7 @@ def listar_dashboard():
                         GROUP BY s.nome
                         ORDER BY total DESC;"""
             resultado_servicos = con.execute(text(sql_servicos))
-            servicos = [dict(row) for row in resultado_servicos]
+            servico = [dict(row._mapping) for row in resultado_servico]
 
             sql_profissionais = """SELECT p.nome, COUNT(*) AS total
                         FROM agenda a
@@ -39,7 +39,7 @@ def listar_dashboard():
                         GROUP BY p.nome
                         ORDER BY total DESC;"""
             resultado_profissionais = con.execute(text(sql_profissionais))
-            profissionais = [dict(row) for row in resultado_profissionais]
+            profissionais = [dict(row._mapping) for row in resultado_profissionais]
 
         return {
                 "total_agendamentos": total_agendamentos,
