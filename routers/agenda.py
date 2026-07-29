@@ -48,6 +48,55 @@ def cadastrar_agendamento(agenda :Agenda):
     engine.dispose()
     return 'Agendamento cadastrado com sucesso!'
 
+@router.post('/agendar')
+def agendar_servico(agenda :Agenda):
+    try:
+        with engine.begin() as con:
+            sql = """INSERT INTO public.agenda
+                    (status, horario_inicial, horario_final, data, cliente_id, profissional_id, servico_id)
+                VALUES ( :status, :horario_inicial, :horario_final, :data, :cliente_id, :profissional_id, :servico_id)"""            
+            dados = {
+                "status": agenda.status,
+                "horario_inicial": agenda.horario_inicial,
+                "horario_final": agenda.horario_final,
+                "data": agenda.data,
+                "cliente_id": agenda.cliente_id,
+                "profissional_id": agenda.profissional_id,
+                "servico_id": agenda.servico_id
+            }
+
+            resultado = con.execute(text(sql), dados)
+            print("Linhas afetadas:", resultado.rowcount)
+
+    except Exception as erro:
+        print("ERRO:", erro)
+        return {"erro": str(erro)}
+        
+    engine.dispose()
+    return 'Serviço agendado com sucesso!'
+
+
+#escolher serviços
+@router.get("/opcoes_servico")
+def listar_servicos():
+    try:
+        with engine.connect() as con:
+            sql = """SELECT 
+                p.id AS profissional_id,
+                p.nome AS profissional_nome,
+                s.id AS servico_id,
+                s.nome AS servico_nome
+        FROM profissional_servico ps
+        JOIN profissional p ON ps.profissional_id = p.id
+        JOIN servico s ON ps.servico_id = s.id;"""
+
+            response = con.execute(text(sql))
+            result = response.mappings().all()
+    except Exception as e:
+        return e
+    engine.dispose()
+    return result
+    
 # Read (todos os agendamentos)
 @router.get('')
 def listar_agendamentos():
