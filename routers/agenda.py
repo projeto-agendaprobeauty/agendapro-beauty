@@ -19,11 +19,13 @@ engine = create_engine(DATABASE_URL)
 #Create
 @router.post('')
 def cadastrar_agendamento(agenda :Agenda):
-    
     try:
         with engine.begin() as con:
-             
-            sql = """INSERT INTO public.agenda
+            sql = """SELECT duracao FROM servico WHERE id = :id_servico"""
+            response = con.execute(sql, {"id_servico": agenda.servico_id})
+            duracao = response.fetchone()
+            return duracao 
+            sql = """INSERT INTO public.agenda 
                     (status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id)
                 VALUES ( :status, :horario_inicial, :horario_final, :data, :cliente_id, :profissional_id, :servico_id)"""            
             dados = {
@@ -101,35 +103,34 @@ def listar_agendamentos():
     try:
         with engine.connect() as con:
             # AO INVÉS DE EXIBIR OS IDS, EXIBE OS NOMES DO PROFISSIONAL, CLIENTE E DO SERVIÇO
-            sql = """SELECT a.id, a.cliente_id, cliente.nome as cliente_nome, a.servico_id, servico.nome as servico_nome, a.profissional_id, profissional.nome as profissional_nome, data, a.horario_inicio, a.horario_fim, status
-                    FROM agenda a JOIN cliente ON a.cliente_id = cliente.id 
-                    JOIN profissional ON a.profissional_id = profissional.id
+            # CONSULTA AS VIEWS usuario_cliente E usuario_profissional PARA PEGAR OS IDs certos
+            sql = """SELECT a.id, a.cliente_id, uc.nome as cliente_nome, a.servico_id, servico.nome as servico_nome, a.profissional_id, up.nome as profissional_nome, data, a.horario_inicio, a.horario_fim, status
+                    FROM agenda a JOIN usuario_cliente uc ON a.cliente_id = uc.cliente_id
+                    JOIN usuario_profissional up ON a.profissional_id = up.profissional_id
                     join servico ON a.servico_id = servico.id
 					ORDER BY data ASC;"""
             response = con.execute(text(sql))
-            result = []
+            result = {}
             for row in response:
                 linha = row._mapping
-                agenda = {
-                    linha['id']: {
-                        "cliente": {
-                            "id": linha['cliente_id'],
-                            "nome": linha['cliente_nome']
-                        },
-                        "servico": {
-                            "id": linha['servico_id'],
-                            "nome": linha['servico_nome']
-                        },
-                        "profissional": {
-                            "id": linha['profissional_id'],
-                            "nome": linha['profissional_nome']
-                        },
-                        "inicio": linha['horario_inicio'],
-                        "fim": linha['horario_fim'],
-                        "status": linha['status']
-                    }
+                result[linha['id']]= {
+                    "cliente": {
+                        "id": linha['cliente_id'],
+                        "nome": linha['cliente_nome']
+                    },
+                    "servico": {
+                        "id": linha['servico_id'],
+                        "nome": linha['servico_nome']
+                    },
+                    "profissional": {
+                        "id": linha['profissional_id'],
+                        "nome": linha['profissional_nome']
+                    },
+                    "inicio": linha['horario_inicio'],
+                    "fim": linha['horario_fim'],
+                    "status": linha['status']
                 }
-                result.append(agenda)
+                
     except Exception as e:
         return e
     engine.dispose()
