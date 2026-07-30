@@ -3,8 +3,8 @@ from pydantic import BaseModel, field_validator
 
 class Agenda(BaseModel):
     status: str
-    horario_inicial: str
-    horario_final: str
+    horario_inicio: str
+    horario_fim: str
     data: date
     cliente_id: int
     profissional_id: int
@@ -18,7 +18,7 @@ class Agenda(BaseModel):
         
         return v
 
-    @field_validator('horario_inicial', 'horario_final')
+    @field_validator('horario_inicio', 'horario_fim')
     def horario_validacao(cls, v):
         if len(v) != 5 or v[2] != ':' or not v.replace(':', '').isdigit():
             raise ValueError('Formato de horário inválido. Utilize o formato HH:MM.')
@@ -39,54 +39,54 @@ class Agenda(BaseModel):
         
         return v
 
-    @field_validator('horario_final')
-    def horario_final_validacao(cls, v, values):
-        if 'horario_inicial' in values:
-            horario_inicial = values['horario_inicial']
-            if horario_inicial >= v:
+    @field_validator('horario_fim')
+    def horario_fim_validacao(cls, v, values):
+        if 'horario_inicio' in values:
+            horario_inicio = values['horario_inicio']
+            if horario_inicio >= v:
                 raise ValueError('Horário final inválido. O horário final deve ser posterior ao horário inicial.')
         
         return v
 
-    @field_validator('horario_inicial', 'horario_final')
+    @field_validator('horario_inicio', 'horario_fim')
     def horario_diferente_validacao(cls, v, values):    
-        if 'horario_inicial' in values and 'horario_final' in values:
-            horario_inicial = values['horario_inicial']
-            horario_final = values['horario_final']
-            if horario_inicial == horario_final:
+        if 'horario_inicio' in values and 'horario_fim' in values:
+            horario_inicio = values['horario_inicio']
+            horario_fim = values['horario_fim']
+            if horario_inicio == horario_fim:
                 raise ValueError('Horários inválidos. O horário inicial e o horário final não podem ser iguais.')
         
         return v
 
-    @field_validator('horario_inicial', 'horario_final')
+    @field_validator('horario_inicio', 'horario_fim')
     def horario_duracao_validacao(cls, v, values):  
-        if 'horario_inicial' in values and 'horario_final' in values:
-            horario_inicial = values['horario_inicial']
-            horario_final = values['horario_final']
-            hora_inicial, minuto_inicial = map(int, horario_inicial.split(':'))
-            hora_final, minuto_final = map(int, horario_final.split(':'))
-            duracao = (hora_final * 60 + minuto_final) - (hora_inicial * 60 + minuto_inicial)
+        if 'horario_inicio' in values and 'horario_fim' in values:
+            horario_inicio = values['horario_inicio']
+            horario_fim = values['horario_fim']
+            hora_inicio, minuto_inicio = map(int, horario_inicio.split(':'))
+            hora_fim, minuto_fim = map(int, horario_fim.split(':'))
+            duracao = (hora_fim * 60 + minuto_fim) - (hora_inicio * 60 + minuto_inicio)
             if duracao < 30:
                 raise ValueError('Duração inválida. O agendamento deve ter no mínimo 30 minutos de duração.')
         
         return v
     
     
-    @field_validator('horario_inicial', 'horario_final')
+    @field_validator('horario_inicio', 'horario_fim')
     def horario_intervalo_validacao(cls, v, values):
-        if 'horario_inicial' in values and 'horario_final' in values:
-            horario_inicial = values['horario_inicial']
-            horario_final = values['horario_final']
-            hora_inicial, minuto_inicial = map(int, horario_inicial.split(':'))
-            hora_final, minuto_final = map(int, horario_final.split(':'))
-            if (hora_inicial * 60 + minuto_inicial) % 15 != 0:
+        if 'horario_inicio' in values and 'horario_fim' in values:
+            horario_inicio = values['horario_inicio']
+            horario_fim = values['horario_fim']
+            hora_inicio, minuto_inicio = map(int, horario_inicio.split(':'))
+            hora_fim, minuto_fim = map(int, horario_fim.split(':'))
+            if (hora_inicio * 60 + minuto_inicio) % 15 != 0:
                 raise ValueError('Horário inválido. O horário inicial deve estar em intervalos de 15 minutos.')
-            if (hora_final * 60 + minuto_final) % 15 != 0:
+            if (hora_fim * 60 + minuto_fim) % 15 != 0:
                 raise ValueError('Horário inválido. O horário final deve estar em intervalos de 15 minutos.')
         
         return v
 
-    @field_validator('horario_inicial', 'horario_final')
+    @field_validator('horario_inicio', 'horario_fim')
     def horario_dia_util_validacao(cls, v, values):  
         if 'data' in values:
             data = values['data']
