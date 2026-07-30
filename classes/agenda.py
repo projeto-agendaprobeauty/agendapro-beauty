@@ -18,7 +18,7 @@ class Agenda(BaseModel):
         if v < date.today():
             raise ValueError('Data inválida. A data não pode ser anterior à data atual.')
         if v.weekday() == 6:  # 6 = Domingo
-            raise ValueError('Data inválida. O agendamento não pode ser feito em finais de semana.')
+            raise ValueError('Data inválida. O agendamento não pode ser feito para domingo.')
         return v
 
     # Validação dos horários em múltiplos de 15 minutos
