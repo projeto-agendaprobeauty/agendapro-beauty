@@ -17,7 +17,7 @@ class Agenda(BaseModel):
     def data_validacao(cls, v: date) -> date: 
         if v < date.today():
             raise ValueError('Data inválida. A data não pode ser anterior à data atual.')
-        if v.weekday() in [5, 6]:  # 5 = Sábado, 6 = Domingo
+        if v.weekday() == 6:  # 6 = Domingo
             raise ValueError('Data inválida. O agendamento não pode ser feito em finais de semana.')
         return v
 
