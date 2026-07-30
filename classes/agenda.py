@@ -45,4 +45,12 @@ class Agenda(BaseModel):
             raise ValueError('Duração inválida. O agendamento deve ter no mínimo 30 minutos de duração.')
         
         return self
+
+    @validar_cancelamento_horario
+    def validar_cancelamento_horario(Horario_inicio: time, Horario_fim: time) -> None:
+        # Valida se o horário de cancelamento é permitido (exemplo: não permitir cancelamento em menos de 1 hora antes do início)
+        from datetime import datetime, timedelta
+        agora = datetime.now().time()
+        if Horario_inicio <= (datetime.combine(date.today(), agora) + timedelta(hours=1)).time():
+            raise ValueError('Cancelamento inválido. O agendamento não pode ser cancelado com menos de 1 hora de antecedência.')
    
