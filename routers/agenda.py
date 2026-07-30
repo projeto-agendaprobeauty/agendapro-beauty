@@ -25,11 +25,11 @@ def cadastrar_agendamento(agenda :Agenda):
              
             sql = """INSERT INTO public.agenda
                     (status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id)
-                VALUES ( :status, :horario_inicial, :horario_final, :data, :cliente_id, :profissional_id, :servico_id)"""            
+                VALUES ( :status, :horario_inicio, :horario_fim, :data, :cliente_id, :profissional_id, :servico_id)"""            
             dados = {
                 "status": agenda.status,
-                "horario_inicial": agenda.horario_inicial,
-                "horario_final": agenda.horario_final,
+                "horario_inicio": agenda.horario_inicio,
+                "horario_fim": agenda.horario_fim,
                 "data": agenda.data,
                 "cliente_id": agenda.cliente_id,
                 "profissional_id": agenda.profissional_id,
@@ -43,20 +43,19 @@ def cadastrar_agendamento(agenda :Agenda):
         print("ERRO:", erro)
         return {"erro": str(erro)}
         
-    engine.dispose()
-    return 'Agendamento cadastrado com sucesso!'
+        return 'Agendamento cadastrado com sucesso!'
 
 @router.post('/agendar')
 def agendar_servico(agenda :Agenda):
     try:
         with engine.begin() as con:
             sql = """INSERT INTO public.agenda
-                    (status, horario_inicial, horario_final, data, cliente_id, profissional_id, servico_id)
-                VALUES ( :status, :horario_inicial, :horario_final, :data, :cliente_id, :profissional_id, :servico_id)"""            
+                    (status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id)
+                VALUES ( :status, :horario_inicio, :horario_fim, :data, :cliente_id, :profissional_id, :servico_id)"""            
             dados = {
                 "status": agenda.status,
-                "horario_inicial": agenda.horario_inicial,
-                "horario_final": agenda.horario_final,
+                "horario_inicio": agenda.horario_inicio,
+                "horario_fim": agenda.horario_fim,
                 "data": agenda.data,
                 "cliente_id": agenda.cliente_id,
                 "profissional_id": agenda.profissional_id,
@@ -70,8 +69,7 @@ def agendar_servico(agenda :Agenda):
         print("ERRO:", erro)
         return {"erro": str(erro)}
         
-    engine.dispose()
-    return 'Serviço agendado com sucesso!'
+        return 'Serviço agendado com sucesso!'
 
 
 #escolher serviços
@@ -92,7 +90,7 @@ def listar_servicos():
             result = response.mappings().all()
     except Exception as e:
         return e
-    engine.dispose()
+    
     return result
     
 # Read (todos os agendamentos)
@@ -132,7 +130,7 @@ def listar_agendamentos():
                 result.append(agenda)
     except Exception as e:
         return e
-    engine.dispose()
+    
     return result
 
 # Read (buscar agendamento por id)
@@ -170,7 +168,7 @@ def buscar_agendamento(id : int):
             }
     except Exception as e:
         return e
-    engine.dispose()
+    
     return result
     
 @router.put('/{id}')
@@ -180,8 +178,8 @@ def atualizar_agendamento(id: int, agenda :Agenda):
         with engine.begin() as con: 
             sql = """UPDATE public.agenda
                     SET status = :status,
-                        horario_inicio = :horario_inicial,
-                        horario_fim = :horario_final,
+                        horario_inicio = :horario_inicio,
+                        horario_fim = :horario_fim,
                         data = :data,
                         cliente_id = :cliente_id,
                         profissional_id = :profissional_id,
@@ -190,8 +188,8 @@ def atualizar_agendamento(id: int, agenda :Agenda):
             dados = {
                 "id": id,
                 "status": agenda.status,
-                "horario_inicial": agenda.horario_inicial,
-                "horario_final": agenda.horario_final,
+                "horario_inicio": agenda.horario_inicio,
+                "horario_fim": agenda.horario_fim,
                 "data": agenda.data,
                 "cliente_id": agenda.cliente_id,
                 "profissional_id": agenda.profissional_id,
@@ -200,7 +198,7 @@ def atualizar_agendamento(id: int, agenda :Agenda):
             con.execute(text(sql), dados)
     except Exception as erro:
         return erro
-    engine.dispose()
+    
     return 'Agendamento atualizado com sucesso!'
 
 # Delete
@@ -215,4 +213,6 @@ def deletar_agendamento(id : int):
             return 'Agendamento deletado com sucesso!'
     except Exception as e:
         return e
+    
+    
     
