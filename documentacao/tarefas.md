@@ -10,7 +10,7 @@
 - [ ] Selecionar um dia
 - [ ] Visualizar profissionais que atuam naquela área e estão disponíveis naquele dia
 - [ ] Visualizar horários disponíveis junto com os profissionais
-- [ ] Visualizar serviços contratados e o status
+- [x] Visualizar serviços contratados e o status -> theo ta feito
 
 ---
 
