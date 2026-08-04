@@ -1,5 +1,5 @@
-from datetime import date
-from pydantic import BaseModel
+from datetime import date, time
+from pydantic import BaseModel, field_validator
 
 class Agenda(BaseModel):
     status: str
