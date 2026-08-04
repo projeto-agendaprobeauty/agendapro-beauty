@@ -1,86 +1,99 @@
 import os
 from fastapi import APIRouter
 from dotenv import load_dotenv
-from classes.cliente import Cliente
+from classes.usuario import Usuario
 from sqlalchemy import create_engine, text
 
 load_dotenv()
 DATABASE_URL = os.getenv('DATABASE_URL')
-router = APIRouter(prefix='/cliente', tags=['Cliente'])
+router = APIRouter(prefix='/usuario', tags=['Usuario'])
 
 # Create
 @router.post('')
-def insert_cliente(cliente :Cliente):
+def insert_usuario(usuario :Usuario):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.begin() as con: 
-            sql = """INSERT INTO public.cliente
-                                (usuario_id)
-                        VALUES ( :usuario_id)"""            
+            sql = """INSERT INTO public.usuario
+                    (nome, senha, email, telefone)
+                    VALUES(:nome, :senha, :email, :telefone);"""            
             dados = {
-                "usuario_id": cliente.usuario_id
+                "nome" : usuario.nome,
+                "senha": usuario.senha,
+                "email": usuario.email,
+                "telefone": usuario.telefone
             }
             con.execute(text(sql), dados)
     except Exception as erro:
         return erro
     engine.dispose()
-    return 'Cliente cadastrado com sucesso!'
-# Read (todos os clientes)
+    return 'Usuário cadastrado com sucesso!'
+  
+#READ
 @router.get('')
-def select_cliente():
+def select_usuario():
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT * FROM cliente"""
+            sql = """SELECT id, nome, senha, email, telefone
+                      FROM public.usuario;"""
             response = con.execute(text(sql))
             result = response.mappings().all()
     except Exception as e:
         return e
     engine.dispose()
     return result
-
-# Read (buscar cliente por id)
+  
+#READ (busca usuario por id)
 @router.get('/{id}')
-def search_cliente(id : int):
+def search_usuario(id : int):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT * FROM cliente 
-                    WHERE id = :id"""
+            sql = """SELECT nome, email, telefone 
+                    FROM public.usuario 
+                    WHERE id = :id;"""
             response = con.execute(text(sql), {"id": id})
             result = response.fetchone()
     except Exception as erro:
         return erro
     engine.dispose()
     return result._mapping
-# Update
+  
+#UPDATE
 @router.put('/{id}')
-def update_cliente(id: int, cliente :Cliente):
+def update_usuario(id: int, usuario :Usuario):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.begin() as con: 
-            sql = """UPDATE public.cliente
-                    SET usuario_id = :usuario_id 
-                    WHERE id = :id"""            
+            sql = """UPDATE public.usuario
+                    SET nome= :nome,
+                    senha= :senha, 
+                    email= :email,
+                    telefone = :telefone,
+                    WHERE id = :id;"""            
             dados = {
                 "id": id, 
-                "usuario_id": cliente.usuario_id
+                "nome": usuario.nome,
+                "senha": usuario.senha,
+                "email": usuario.email,
+                "telefone": usuario.telefone
             }
             con.execute(text(sql), dados)
     except Exception as erro:
         return erro
     engine.dispose()
-    return 'Cliente atualizado com sucesso!'
-# Delete
+    return 'Usuário atualizado com sucesso!'
+  
+#DELETE
 @router.delete('/{id}')
-def delete_cliente(id : int):
+def delete_usuario(id : int):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.begin() as con:
-            sql = """DELETE FROM cliente
+            sql = """DELETE FROM usuario
                     WHERE id=:id;"""
             con.execute(text(sql), {"id": id})
-            return 'Cliente deletado com sucesso!'
+            return 'Usuário deletado com sucesso!'
     except Exception as erro:
         return erro
-    

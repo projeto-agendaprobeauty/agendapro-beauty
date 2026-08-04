@@ -15,14 +15,12 @@ def insert_profissional(profissional :Profissional):
     try:
         with engine.begin() as con:
             sql = """INSERT INTO public.profissional
-                    (nome, email, horario_inicio, horario_fim)
-                    VALUES(:nome, :email, :horario_inicio, :horario_fim);"""
+                    (horario_inicio, horario_fim, usuario_id)
+                    VALUES(:horario_inicio, :horario_fim, :usuario_id);"""
             dados = {
-            "nome": profissional.nome,
-            "email":profissional.email,
             "horario_inicio": profissional.horario_inicio,
-            "horario_fim": profissional
-            #usuario id
+            "horario_fim": profissional.horario_fim,
+            "usuario_id": profissional.usuario_id
             }
             con.execute(text(sql),dados)
     except Exception as erro:
@@ -36,7 +34,7 @@ def select_profissional():
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT id, nome, email, horario_inicio, horario_fim
+            sql = """SELECT id, horario_inicio, horario_fim, usuario_id
                     FROM public.profissional;"""
             response = con.execute(text(sql))
             result = response.mappings().all()
@@ -51,7 +49,7 @@ def search_profissional(id : int):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT nome, email, horario_inicio, horario_fim 
+            sql = """SELECT horario_inicio, horario_fim, usuario_id
                     FROM public.profissional 
                     WHERE id = :id"""
             response = con.execute(text(sql), {"id": id})
@@ -68,17 +66,15 @@ def update_profissional(id: int, profissional :Profissional):
     try:
         with engine.begin() as con: 
             sql = """UPDATE public.profissional
-                    SET nome = :nome, 
-                        email = :email, 
-                        horario_inicio = :horario_inicio,
-                        horario_fim = :horario_fim
+                    SET horario_inicio = :horario_inicio,
+                        horario_fim = :horario_fim,
+                        usuario_id = :usuario_id
                     WHERE id = :id"""     
             dados = {
                 "id": id,
-                "nome": profissional.nome,
-                "email":profissional.email,
                 "horario_inicio": profissional.horario_inicio,
-                "horario_fim": profissional.horario_fim
+                "horario_fim": profissional.horario_fim,
+                "usuario_id": profissional.usuario_id
             }
             con.execute(text(sql), dados)
     except Exception as erro:
