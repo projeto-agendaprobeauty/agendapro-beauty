@@ -15,13 +15,10 @@ def insert_cliente(cliente :Cliente):
     try:
         with engine.begin() as con: 
             sql = """INSERT INTO public.cliente
-                                (nome, email, telefone)
-                        VALUES ( :nome, :email, :telefone)"""            
+                                (usuario_id)
+                        VALUES ( :usuario_id)"""            
             dados = {
-                "nome" : cliente.nome,
-                "email": cliente.email,
-                "telefone": cliente.telefone
-                #usuario id
+                "usuario_id": cliente.usuario_id
             }
             con.execute(text(sql), dados)
     except Exception as erro:
@@ -34,8 +31,7 @@ def select_cliente():
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT nome, email, telefone 
-                    FROM cliente"""
+            sql = """SELECT * FROM cliente"""
             response = con.execute(text(sql))
             result = response.mappings().all()
     except Exception as e:
@@ -49,8 +45,7 @@ def search_cliente(id : int):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT nome, email, telefone 
-                    FROM cliente 
+            sql = """SELECT * FROM cliente 
                     WHERE id = :id"""
             response = con.execute(text(sql), {"id": id})
             result = response.fetchone()
@@ -65,15 +60,11 @@ def update_cliente(id: int, cliente :Cliente):
     try:
         with engine.begin() as con: 
             sql = """UPDATE public.cliente
-                    SET nome = :nome, 
-                        email = :email, 
-                        telefone = :telefone
+                    SET usuario_id = :usuario_id 
                     WHERE id = :id"""            
             dados = {
                 "id": id, 
-                "nome": cliente.nome,
-                "email": cliente.email,
-                "telefone": cliente.telefone
+                "usuario_id": cliente.usuario_id
             }
             con.execute(text(sql), dados)
     except Exception as erro:
