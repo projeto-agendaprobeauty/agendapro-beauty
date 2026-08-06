@@ -55,7 +55,7 @@ def search_cliente(id : int):
                     FROM cliente
                     JOIN usuario 
                     ON cliente.usuario_id = usuario.id 
-                    WHERE id = :id"""
+                    WHERE cliente.id = :id"""
             response = con.execute(text(sql), {"id": id})
             result = response.fetchone()
     except Exception as erro:
