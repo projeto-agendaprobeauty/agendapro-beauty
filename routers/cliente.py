@@ -68,7 +68,7 @@ def update_cliente(id: int, cliente :Cliente):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.begin() as con: 
-            sql = """UPDATE public.cliente
+            sql = """UPDATE public.usuario
                     SET nome = :nome, 
                         email = :email, 
                         telefone = :telefone
