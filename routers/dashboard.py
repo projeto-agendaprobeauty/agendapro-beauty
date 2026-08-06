@@ -33,11 +33,12 @@ def listar_dashboard():
             resultado_servico = con.execute(text(sql_servico))
             servico = [dict(row._mapping) for row in resultado_servico]
 
-            sql_profissionais = """SELECT p.nome, COUNT(*) AS total
-                        FROM agenda a
-                        JOIN profissional p ON a.profissional_id = p.id
-                        GROUP BY p.nome
-                        ORDER BY total DESC;"""
+            sql_profissionais = """SELECT u.nome, COUNT(*) AS total
+                            FROM agenda a
+                            JOIN profissional p ON a.profissional_id = p.id
+                            JOIN usuario u ON p.usuario_id = u.id
+                            GROUP BY u.nome
+                            ORDER BY total DESC;"""
             resultado_profissional = con.execute(text(sql_profissionais))
             profissional = [dict(row._mapping) for row in resultado_profissional]
 
@@ -47,9 +48,9 @@ def listar_dashboard():
                 "profissional_mais_requisitados": profissional
                 
            } 
-
+    
     except Exception as erro:
         print("ERRO:", erro)
         return {"erro": str(erro)}
         
-    engine.dispose()
+            
