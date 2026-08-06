@@ -45,11 +45,10 @@ def listar_dashboard():
                 "total_agendamentos": total_agendamentos,
                 "servico_mais_solicitados": servico,
                 "profissional_mais_requisitados": profissional
-                
-           } 
+        } 
 
     except Exception as erro:
         print("ERRO:", erro)
         return {"erro": str(erro)}
-        
-    engine.dispose()
+    finally:   
+        engine.dispose()

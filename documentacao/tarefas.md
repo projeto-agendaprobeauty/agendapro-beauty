@@ -3,14 +3,13 @@
 ## Cliente
 
 - [ ] Login -> emilli fazendo ---- fazer tabela usuario e relacionar com cliente e profissional
-- [ ] Logout
 - [ ] Visualizar e editar seus próprios dados
 - [ ] Após login, ser redirecionado para uma lista de serviços
-- [ ] Escolher um serviço -> everton esta fazendo 
+- [ ] Escolher um serviço -> everton esta fazendo
 - [ ] Selecionar um dia
 - [ ] Visualizar profissionais que atuam naquela área e estão disponíveis naquele dia
 - [ ] Visualizar horários disponíveis junto com os profissionais
-- [ ] Visualizar serviços contratados e o status
+- [x] Visualizar serviços contratados e o status -> theo ta feito
 
 ---
 
@@ -38,5 +37,6 @@
 
 ## Observações
 
+- [ ] Colocar NEXTVAL nos SQL com autoincremente
 - [x] Aceitar apenas o serviço que o **Everton** feito
 - [ ] Manter tudo no **singular** e **sem acentos** (padronização)

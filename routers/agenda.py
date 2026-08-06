@@ -104,18 +104,15 @@ def listar_servicos():
 def listar_agendamentos():
     try:
         with engine.connect() as con:
-            sql = """SELECT a.id, a.cliente_id, cliente.nome as cliente_nome, 
-                            a.servico_id, servico.nome as servico_nome, 
-                            a.profissional_id, profissional.nome as profissional_nome, 
-                            data, a.horario_inicio, a.horario_fim, status
-                    FROM agenda a 
-                    JOIN cliente ON a.cliente_id = cliente.id 
-                    JOIN profissional ON a.profissional_id = profissional.id
-                    JOIN servico ON a.servico_id = servico.id
-                    ORDER BY data ASC;"""
-            
+            # AO INVÉS DE EXIBIR OS IDS, EXIBE OS NOMES DO PROFISSIONAL, CLIENTE E DO SERVIÇO
+            # CONSULTA AS VIEWS usuario_cliente E usuario_profissional PARA PEGAR OS IDs certos
+            sql = """SELECT a.id, a.cliente_id, uc.nome as cliente_nome, a.servico_id, servico.nome as servico_nome, a.profissional_id, up.nome as profissional_nome, data, a.horario_inicio, a.horario_fim, status
+                    FROM agenda a JOIN usuario_cliente uc ON a.cliente_id = uc.cliente_id
+                    JOIN usuario_profissional up ON a.profissional_id = up.profissional_id
+                    join servico ON a.servico_id = servico.id
+					ORDER BY data ASC;"""
             response = con.execute(text(sql))
-            result = []
+            result = {}
             for row in response:
                 linha = row._mapping
                 agenda = {
