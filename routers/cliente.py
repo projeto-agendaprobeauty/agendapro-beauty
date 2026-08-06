@@ -34,8 +34,10 @@ def select_cliente():
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT nome, email, telefone 
-                    FROM cliente"""
+            sql = """SELECT usuario.nome, usuario.email, usuario.telefone 
+                    FROM cliente
+                    JOIN usuario 
+                    ON cliente.usuario_id = usuario.id"""
             response = con.execute(text(sql))
             result = response.mappings().all()
     except Exception as e:
