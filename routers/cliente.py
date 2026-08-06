@@ -72,7 +72,10 @@ def update_cliente(id: int, cliente :Cliente):
                     SET nome = :nome, 
                         email = :email, 
                         telefone = :telefone
-                    WHERE id = :id"""            
+                    WHERE id = :id(
+                    SELECT usuario.id 
+                    FROM public.cliente 
+                    WHERE cliente.id = :id)"""            
             dados = {
                 "id": id, 
                 "nome": cliente.nome,
