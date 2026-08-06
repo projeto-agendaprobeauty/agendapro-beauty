@@ -73,7 +73,7 @@ def update_cliente(id: int, cliente :Cliente):
                         email = :email, 
                         telefone = :telefone
                     WHERE id = :id(
-                    SELECT usuario.id 
+                    SELECT usuario_id 
                     FROM public.cliente 
                     WHERE cliente.id = :id)"""            
             dados = {
