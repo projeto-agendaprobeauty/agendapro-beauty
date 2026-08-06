@@ -16,7 +16,7 @@
 
 ## Profissional
 
-- [ ] Visualizar serviços nos quais foi contratado
+- [ ] Visualizar serviços nos quais foi contratado -> theo ta fazendo
 - [ ] Fazer agenda profissional: -> davi ta fazendo
   - [ ] Criar tabela nova no banco
   - [ ] Ajustar relacionamento com a tabela AGENDA
