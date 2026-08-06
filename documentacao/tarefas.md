@@ -9,7 +9,7 @@
 - [ ] Escolher um serviço -> everton esta fazendo 
 - [ ] Selecionar um dia
 - [ ] Visualizar profissionais que atuam naquela área e estão disponíveis naquele dia
-- [ ] Visualizar horários disponíveis junto com os profissionais
+- [x] Visualizar horários disponíveis junto com os profissionais -> theo ta feito
 - [x] Visualizar serviços contratados e o status -> theo ta feito
 
 ---
