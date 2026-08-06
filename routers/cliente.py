@@ -75,7 +75,8 @@ def update_cliente(id: int, cliente :Cliente):
                     WHERE id = :id(
                     SELECT usuario_id 
                     FROM public.cliente 
-                    WHERE cliente.id = :id)"""            
+                    WHERE cliente.id = :id)
+                    """            
             dados = {
                 "id": id, 
                 "nome": cliente.nome,
