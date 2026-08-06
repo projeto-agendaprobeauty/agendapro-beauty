@@ -51,8 +51,10 @@ def search_cliente(id : int):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT nome, email, telefone 
-                    FROM cliente 
+            sql = """SELECT usuario.nome, usuario.email, usuario.telefone 
+                    FROM cliente
+                    JOIN usuario 
+                    ON cliente.usuario_id = usuario.id 
                     WHERE id = :id"""
             response = con.execute(text(sql), {"id": id})
             result = response.fetchone()
