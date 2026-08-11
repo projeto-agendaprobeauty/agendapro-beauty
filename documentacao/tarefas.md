@@ -20,11 +20,7 @@
   - [ ] Criar tabela nova no banco
   - [ ] Ajustar relacionamento com a tabela AGENDA
   - [ ] Colocar os dias e horários por mês que irá trabalhar
-<<<<<<< HEAD
 - [x] Criar dashboarb para administrador -> everton fez 
-=======
-- [ ] Criar dashboarb para administrador -> everton fez
->>>>>>> origin/develop
 
 ---
 
@@ -40,7 +36,8 @@
 ---
 
 ## Observações
-
+- [x] teste de rotas da tabelas servico: todas funcionando. post, retorna o id cadastrado.
+- [ ] teste de rotas de tabelas, everton fazendo
 - [ ] Colocar NEXTVAL nos SQL com autoincremente
 - [x] Aceitar apenas o serviço que o **Everton** feito
 - [ ] Manter tudo no **singular** e **sem acentos** (padronização)
