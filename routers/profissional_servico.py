@@ -43,3 +43,20 @@ def delete_profissionalArea(Profid: int, Servid: int):
     return erro
   engine.dispose()
   return 'Associação deletada com sucesso!'
+
+@router.get('/{id}')
+def select_profissionalServico(id : int):
+    engine = create_engine(DATABASE_URL)
+    try:
+        with engine.connect() as con:
+            sql = """SELECT u.nome, s.nome AS servico, a.horario_inicio, a.horario_fim, a.data  from servico s
+                     JOIN agenda a on s.id = a.servico_id
+                     JOIN profissional p on p.id = a.profissional_id
+                     JOIN usuario u on u.id = p.usuario_id
+                     WHERE p.id = :id;"""
+            response = con.execute(text(sql), {"id": id})
+            result = response.fetchone()
+    except Exception as erro:
+        return erro
+    engine.dispose()
+    return result._mapping
