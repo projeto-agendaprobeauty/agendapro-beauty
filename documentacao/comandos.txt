@@ -15,3 +15,5 @@ with engine.connect() as conn:
     conn.commit()
 
 print(f"O último ID inserido foi: {novo_id}")
+
+python nomeaqr.db -> rodar scrpit

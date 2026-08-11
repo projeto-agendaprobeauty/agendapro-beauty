@@ -8,6 +8,7 @@ from routers.servico import router as servico_router
 from routers.profissional_area import router as profissionalarea_router
 from routers.profissional_servico import router as profissionalservico_router
 from routers.dashboard import router as dashboard_router
+from routers.usuario import router as usuario_router
 app = FastAPI()
 
 app.include_router(cliente_router)
@@ -18,6 +19,7 @@ app.include_router(area_router)
 app.include_router(profissionalarea_router)
 app.include_router(profissionalservico_router)
 app.include_router(dashboard_router)
+app.include_router(usuario_router)
 
 @app.get('/')
 def index():
@@ -27,5 +29,5 @@ if __name__ == '__main__':
     uvicorn.run(
         "main:app",
         host="127.0.0.1",
-        port=8000,
+        port=80,
         reload=True)

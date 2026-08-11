@@ -15,13 +15,10 @@ def insert_cliente(cliente :Cliente):
     try:
         with engine.begin() as con: 
             sql = """INSERT INTO public.cliente
-                                (nome, email, telefone)
-                        VALUES ( :nome, :email, :telefone)"""            
+                                (usuario_id)
+                        VALUES ( :usuario_id)"""            
             dados = {
-                "nome" : cliente.nome,
-                "email": cliente.email,
-                "telefone": cliente.telefone
-                #usuario id
+                "usuario_id": cliente.usuario_id
             }
             con.execute(text(sql), dados)
     except Exception as erro:
@@ -34,10 +31,14 @@ def select_cliente():
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
+<<<<<<< HEAD
             sql = """SELECT usuario.nome, usuario.email, usuario.telefone 
                     FROM cliente
                     JOIN usuario 
                     ON cliente.usuario_id = usuario.id"""
+=======
+            sql = """SELECT * FROM cliente"""
+>>>>>>> origin/develop
             response = con.execute(text(sql))
             result = response.mappings().all()
     except Exception as e:
@@ -51,11 +52,16 @@ def search_cliente(id : int):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
+<<<<<<< HEAD
             sql = """SELECT usuario.nome, usuario.email, usuario.telefone 
                     FROM cliente
                     JOIN usuario 
                     ON cliente.usuario_id = usuario.id 
                     WHERE cliente.id = :id"""
+=======
+            sql = """SELECT * FROM cliente 
+                    WHERE id = :id"""
+>>>>>>> origin/develop
             response = con.execute(text(sql), {"id": id})
             result = response.fetchone()
     except Exception as erro:
@@ -68,6 +74,7 @@ def update_cliente(id: int, cliente :Cliente):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.begin() as con: 
+<<<<<<< HEAD
             sql = """UPDATE public.usuario
                     SET nome = :nome, 
                         email = :email, 
@@ -77,11 +84,14 @@ def update_cliente(id: int, cliente :Cliente):
                     FROM public.cliente 
                     WHERE cliente.id = :id)
                     """            
+=======
+            sql = """UPDATE public.cliente
+                    SET usuario_id = :usuario_id 
+                    WHERE id = :id"""            
+>>>>>>> origin/develop
             dados = {
                 "id": id, 
-                "nome": cliente.nome,
-                "email": cliente.email,
-                "telefone": cliente.telefone
+                "usuario_id": cliente.usuario_id
             }
             con.execute(text(sql), dados)
     except Exception as erro:
