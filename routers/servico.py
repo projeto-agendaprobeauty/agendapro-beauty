@@ -16,7 +16,8 @@ def insert_servico(servico :Servico):
     try:
         with engine.begin() as con:
             sql = """INSERT INTO public.servico(nome, descricao, duracao, preco, area_id)
-                    VALUES(:nome, :descricao, :duracao, :preco, :area_id);"""
+                    VALUES(:nome, :descricao, :duracao, :preco, :area_id)
+                    RETURNING id"""
             dados = {
             "nome": servico.nome,
             "descricao":servico.descricao,
@@ -24,12 +25,18 @@ def insert_servico(servico :Servico):
             "preco": servico.preco,
             "area_id": servico.area_id
             }
-            con.execute(text(sql),dados)
+            resultado = con.execute(text(sql),dados)
+            novo_id = resultado.scalar()
+
     except Exception as erro:
         print ("ERRO:", erro)
         return erro
     engine.dispose()
-    return 'Serviço cadastrado com sucesso!'
+    return {
+    "mensagem" : "Serviço cadastrado com sucesso!",
+    "id" : novo_id
+    }
+
 #READ
 @router.get('')
 def select_servico():
