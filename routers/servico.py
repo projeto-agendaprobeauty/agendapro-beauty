@@ -26,6 +26,7 @@ def insert_servico(servico :Servico):
             }
             con.execute(text(sql),dados)
     except Exception as erro:
+        print ("ERRO:", erro)
         return erro
     engine.dispose()
     return 'Serviço cadastrado com sucesso!'
