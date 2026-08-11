@@ -46,7 +46,6 @@ def listar_dashboard():
                 "total_agendamentos": total_agendamentos,
                 "servico_mais_solicitados": servico,
                 "profissional_mais_requisitados": profissional
-<<<<<<< HEAD
                 
            } 
     
@@ -55,12 +54,3 @@ def listar_dashboard():
         return {"erro": str(erro)}
         
             
-=======
-        } 
-
-    except Exception as erro:
-        print("ERRO:", erro)
-        return {"erro": str(erro)}
-    finally:   
-        engine.dispose()
->>>>>>> origin/develop
