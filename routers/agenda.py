@@ -14,7 +14,6 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 router = APIRouter(prefix='/agenda', tags=['Agenda'])
 engine = create_engine(DATABASE_URL)
 
-<<<<<<< HEAD
 
 # Create (Cadastrar Agendamento)
 @router.post('', status_code=status.HTTP_201_CREATED)
@@ -22,18 +21,6 @@ def cadastrar_agendamento(agenda: Agenda):
     try:
         with engine.begin() as con:
             sql = """INSERT INTO public.agenda
-=======
-#Create
-@router.post('')
-def cadastrar_agendamento(agenda :Agenda):
-    try:
-        with engine.begin() as con:
-            sql = """SELECT duracao FROM servico WHERE id = :id_servico"""
-            response = con.execute(sql, {"id_servico": agenda.servico_id})
-            duracao = response.fetchone()
-            return duracao 
-            sql = """INSERT INTO public.agenda 
->>>>>>> origin/develop
                     (status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id)
                 VALUES (:status, :horario_inicio, :horario_fim, :data, :cliente_id, :profissional_id, :servico_id)"""
             
@@ -117,7 +104,6 @@ def listar_servicos():
 def listar_agendamentos():
     try:
         with engine.connect() as con:
-<<<<<<< HEAD
             sql = """SELECT a.id, a.cliente_id, cliente.nome as cliente_nome, 
                             a.servico_id, servico.nome as servico_nome, 
                             a.profissional_id, profissional.nome as profissional_nome, 
@@ -128,20 +114,10 @@ def listar_agendamentos():
                     JOIN servico ON a.servico_id = servico.id
                     ORDER BY data ASC;"""
             
-=======
-            # AO INVÉS DE EXIBIR OS IDS, EXIBE OS NOMES DO PROFISSIONAL, CLIENTE E DO SERVIÇO
-            # CONSULTA AS VIEWS usuario_cliente E usuario_profissional PARA PEGAR OS IDs certos
-            sql = """SELECT a.id, a.cliente_id, uc.nome as cliente_nome, a.servico_id, servico.nome as servico_nome, a.profissional_id, up.nome as profissional_nome, data, a.horario_inicio, a.horario_fim, status
-                    FROM agenda a JOIN usuario_cliente uc ON a.cliente_id = uc.cliente_id
-                    JOIN usuario_profissional up ON a.profissional_id = up.profissional_id
-                    join servico ON a.servico_id = servico.id
-					ORDER BY data ASC;"""
->>>>>>> origin/develop
             response = con.execute(text(sql))
             result = {}
             for row in response:
                 linha = row._mapping
-<<<<<<< HEAD
                 agenda = {
                     linha['id']: {
                         "cliente": {
@@ -163,26 +139,6 @@ def listar_agendamentos():
                 }
                 result.append(agenda)
             return result
-=======
-                result[linha['id']]= {
-                    "cliente": {
-                        "id": linha['cliente_id'],
-                        "nome": linha['cliente_nome']
-                    },
-                    "servico": {
-                        "id": linha['servico_id'],
-                        "nome": linha['servico_nome']
-                    },
-                    "profissional": {
-                        "id": linha['profissional_id'],
-                        "nome": linha['profissional_nome']
-                    },
-                    "inicio": linha['horario_inicio'],
-                    "fim": linha['horario_fim'],
-                    "status": linha['status']
-                }
-                
->>>>>>> origin/develop
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
