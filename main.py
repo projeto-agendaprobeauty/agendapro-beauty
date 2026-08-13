@@ -9,6 +9,8 @@ from routers.profissional_area import router as profissionalarea_router
 from routers.profissional_servico import router as profissionalservico_router
 from routers.dashboard import router as dashboard_router
 from routers.usuario import router as usuario_router
+from routers.agenda_profissional import router as agenda_profissional_router
+
 app = FastAPI()
 
 app.include_router(cliente_router)
@@ -20,6 +22,7 @@ app.include_router(profissionalarea_router)
 app.include_router(profissionalservico_router)
 app.include_router(dashboard_router)
 app.include_router(usuario_router)
+app.include_router(agenda_profissional_router)
 
 @app.get('/')
 def index():
