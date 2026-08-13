@@ -32,25 +32,25 @@ INSERT INTO cliente (id, usuario_id) VALUES
 
 
 -- ==========================================
--- 3. INSERÇÃO NA TABELA: profissional
--- ==========================================
--- Usuários profissionais: 1, 2, 3 (os híbridos) + 8, 9, 10 (apenas profissionais)
-INSERT INTO profissional (id, horario_inicio, horario_fim, usuario_id) VALUES
-(1, '09:00:00', '18:00:00', 1), -- Mariana (Híbrida)
-(2, '09:00:00', '18:00:00', 2), -- Bruno (Híbrido)
-(3, '10:00:00', '19:00:00', 3), -- Carla (Híbrida)
-(4, '08:00:00', '17:00:00', 8), -- Rodrigo
-(5, '09:00:00', '18:00:00', 9), -- Gabriela
-(6, '10:00:00', '19:00:00', 10); -- Aline
-
-
--- ==========================================
--- 4. INSERÇÃO NA TABELA: area
+-- 3. INSERÇÃO NA TABELA: area
 -- ==========================================
 INSERT INTO area (id, nome) VALUES
 (1, 'Cabelo'),
 (2, 'Manicure'),
 (3, 'Maquiagem');
+
+-- ==========================================
+-- 4. INSERÇÃO NA TABELA: profissional (com area_id)
+-- ==========================================
+INSERT INTO profissional (id, horario_inicio, horario_fim, usuario_id, area_id) VALUES
+(1, '09:00:00', '18:00:00', 1, 1), -- Mariana (Híbrida) -> Cabelo (1)
+(2, '09:00:00', '18:00:00', 2, 1), -- Bruno (Híbrido)   -> Cabelo (1)
+(3, '10:00:00', '19:00:00', 3, 3), -- Carla (Híbrida)   -> Maquiagem (3)
+(4, '08:00:00', '17:00:00', 8, 1), -- Rodrigo          -> Cabelo (1)
+(5, '09:00:00', '18:00:00', 9, 2), -- Gabriela         -> Manicure (2)
+(6, '10:00:00', '19:00:00', 10, 3); -- Aline           -> Maquiagem (3)
+
+
 
 
 -- ==========================================

@@ -6,3 +6,4 @@ class Profissional(BaseModel):
     usuario_id: str
     horario_inicio: time
     horario_fim: time
+    area_id: str
