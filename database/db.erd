@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -498.2807,
-    "scrollLeft": -183.6439,
+    "scrollTop": -470.2807,
+    "scrollLeft": -235.0569,
     "zoomLevel": 0.76,
     "show": 511,
     "database": 16,
@@ -149,44 +149,6 @@
           "createAt": 1782826846538
         }
       },
-      "OKbpokwRby0ONvwPpN7gp": {
-        "id": "OKbpokwRby0ONvwPpN7gp",
-        "name": "area",
-        "comment": "",
-        "columnIds": [],
-        "seqColumnIds": [],
-        "ui": {
-          "x": 211,
-          "y": 440,
-          "zIndex": 13,
-          "widthName": 60,
-          "widthComment": 60,
-          "color": ""
-        },
-        "meta": {
-          "updateAt": 1782827607334,
-          "createAt": 1782826855290
-        }
-      },
-      "4VJKG2xbBJaWFy61wCuVk": {
-        "id": "4VJKG2xbBJaWFy61wCuVk",
-        "name": "horario_trabalho",
-        "comment": "",
-        "columnIds": [],
-        "seqColumnIds": [],
-        "ui": {
-          "x": 702.4091,
-          "y": 529.0909,
-          "zIndex": 21,
-          "widthName": 89,
-          "widthComment": 60,
-          "color": ""
-        },
-        "meta": {
-          "updateAt": 1782828630363,
-          "createAt": 1782826918059
-        }
-      },
       "AP792SmsxZwkFHHXVZJTG": {
         "id": "AP792SmsxZwkFHHXVZJTG",
         "name": "agenda",
@@ -222,25 +184,6 @@
         "meta": {
           "updateAt": 1782830668932,
           "createAt": 1782826963125
-        }
-      },
-      "xQK2HVxIGcCvSExOFGEbD": {
-        "id": "xQK2HVxIGcCvSExOFGEbD",
-        "name": "area",
-        "comment": "",
-        "columnIds": [],
-        "seqColumnIds": [],
-        "ui": {
-          "x": 728,
-          "y": 458,
-          "zIndex": 75,
-          "widthName": 60,
-          "widthComment": 60,
-          "color": ""
-        },
-        "meta": {
-          "updateAt": 1782828158631,
-          "createAt": 1782828152638
         }
       },
       "oDty-jA4tHtReri4x5KPN": {
@@ -667,7 +610,7 @@
         "tableId": "WBbFqClW8wxQFaJ8aHyy0",
         "name": "duracao",
         "comment": "",
-        "dataType": "interval",
+        "dataType": "int",
         "default": "",
         "options": 8,
         "ui": {
@@ -678,7 +621,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1782829204352,
+          "updateAt": 1783430955001,
           "createAt": 1782828967775
         }
       },

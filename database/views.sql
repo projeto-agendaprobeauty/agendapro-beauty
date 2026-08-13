@@ -1,0 +1,17 @@
+CREATE VIEW usuario_cliente AS
+SELECT u.id AS usuario_id, c.id AS cliente_id, nome, senha, email, telefone FROM cliente c 
+JOIN usuario u ON c.usuario_id = u.id ;
+
+CREATE VIEW usuario_profissional AS
+SELECT u.id AS usuario_id, p.id AS profissional_id, nome, senha, email, telefone FROM profissional p 
+JOIN usuario u ON p.usuario_id = u.id ;
+
+CREATE VIEW servico_status AS
+SELECT a.id AS agenda_id, s.id AS servico_id, status, data, nome, descricao FROM agenda a 
+JOIN servico s ON a.id = s.id;
+
+CREATE VIEW horarios_profissionais AS
+SELECT p.id AS profissional_id, u.nome, u.telefone, COALESCE(a.horario_inicio, '00:00:00') AS horario_ocupadoI, COALESCE(a.horario_fim, '00:00:00') AS horario_ocupadoF, 
+p.horario_inicio, p.horario_fim FROM profissional p
+JOIN usuario u ON p.usuario_id = u.id
+left join agenda a on p.id = a.profissional_id;

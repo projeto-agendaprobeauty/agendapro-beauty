@@ -1,7 +1,5 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr, field_validator
 
 # Schema de Cliente
 class Cliente(BaseModel):
-    nome: str = Field(min_length=2)
-    email: EmailStr
-    telefone: str
+    usuario_id: int
