@@ -23,3 +23,24 @@ def get_agenda_profissional():
     
     return agenda_profissional_list
 
+@router.post("")
+def create_agenda_profissional(agenda_profissional: Agenda_Profissional):
+    
+    try:
+       with engine.begin() as connection:
+
+        sql = """INSERT INTO agenda_profissional (profissional_id, data) 
+              VALUES (:profissional_id, :data)"""
+
+        dados = {
+            "profissional_id": agenda_profissional.profissional_id,
+                "data": agenda_profissional.data
+        }
+            
+        connection.execute(text(sql), dados)
+            
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    
+    return {"message": "Agenda do profissional criada com sucesso!"}
+
