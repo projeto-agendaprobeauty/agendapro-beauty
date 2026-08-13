@@ -31,6 +31,7 @@ CREATE TABLE profissional
   id             serial      NOT NULL,
   horario_inicio time        NOT NULL,
   horario_fim    time        NOT NULL,
+  area_id        integer     NOT NULL,
   usuario_id     integer     NOT NULL,
   PRIMARY KEY (id)
 );
@@ -121,3 +122,8 @@ ALTER TABLE profissional
   ADD	 CONSTRAINT FK_usuario_TO_profissional
     foreign key (usuario_id)
     references usuario (id);
+
+ALTER TABLE profissional
+  ADD	 CONSTRAINT FK_area_TO_profissional
+    foreign key (area_id)
+    references area (id);
