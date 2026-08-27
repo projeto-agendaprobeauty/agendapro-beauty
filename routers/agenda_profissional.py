@@ -47,23 +47,42 @@ def create_agenda_profissional(agenda_profissional: Agenda_Profissional):
 @router.get("/{id}")
 def get_agenda_profissional_by_id(id: int):
     with engine.begin() as connection:
-        sql = """SELECT
-            agenda_profissional.id AS agenda_profissional_id,
-            usuario.id AS usuario_id,
-            usuario.nome AS nome_profissional
-            FROM public.agenda_profissional
-            JOIN public.profissional
-            ON agenda_profissional.profissional_id = profissional.id
-            JOIN public.usuario
-            ON profissional.usuario_id = usuario.id
-        WHERE agenda_profissional.id = :id"""
+        sql = """
+            SELECT 
+                ap.id AS agenda_profissional_id, 
+                ap.data AS data_agenda,
+                u.id AS usuario_id, 
+                u.nome AS nome_profissional,
+                COALESCE(
+                    json_agg(
+                        json_build_object(
+                            'agenda_id', a.id,
+                            'horario_inicio', a.horario_inicio::text,
+                            'horario_fim', a.horario_fim::text,
+                            'status', a.status,
+                            'servico_id', a.servico_id,
+                            'cliente_id', a.cliente_id
+                        )
+                    ) FILTER (WHERE a.id IS NOT NULL), '[]'
+                ) AS horarios_agendados
+            FROM public.agenda_profissional ap
+            JOIN public.profissional p ON ap.profissional_id = p.id
+            JOIN public.usuario u ON p.usuario_id = u.id
+            LEFT JOIN public.agenda a ON a.profissional_id = ap.profissional_id 
+                                      AND a.data = ap.data
+            WHERE ap.id = :id
+            GROUP BY ap.id, ap.data, u.id, u.nome
+        """
         result = connection.execute(text(sql), {"id": id})
         agenda_profissional = result.fetchone()
         
         if not agenda_profissional:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Agenda do profissional não encontrada")
-
-    return dict(agenda_profissional._mapping)
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail="Agenda do profissional não encontrada"
+            )
+            
+        return dict(agenda_profissional._mapping)
 
 @router.put("/{id}")
 def update_agenda_profissional(id: int, agenda_profissional: Agenda_Profissional):  
