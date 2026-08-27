@@ -46,36 +46,6 @@ def cadastrar_agendamento(agenda: Agenda):
         )
 
 
-@router.post('/agendar', status_code=status.HTTP_201_CREATED)
-def agendar_servico(agenda: Agenda):
-    try:
-        with engine.begin() as con:
-            sql = """INSERT INTO public.agenda
-                    (status, horario_inicio, horario_fim, data, cliente_id, profissional_id, servico_id)
-                VALUES (:status, :horario_inicio, :horario_fim, :data, :cliente_id, :profissional_id, :servico_id)"""
-            
-            dados = {
-                "status": agenda.status,
-                "horario_inicio": agenda.horario_inicio,
-                "horario_fim": agenda.horario_fim,
-                "data": agenda.data,
-                "cliente_id": agenda.cliente_id,
-                "profissional_id": agenda.profissional_id,
-                "servico_id": agenda.servico_id
-            }
-
-            resultado = con.execute(text(sql), dados)
-            print("Linhas afetadas:", resultado.rowcount)
-            return {"mensagem": "Serviço agendado com sucesso!"}
-            
-    except Exception as erro:
-        print("ERRO:", erro)
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, 
-            detail=f"Erro ao agendar serviço: {str(erro)}"
-        )
-
-
 # Escolher Serviços
 @router.get("/opcoes_servico")
 def listar_servicos():
