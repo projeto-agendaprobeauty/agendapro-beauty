@@ -10,24 +10,34 @@ router = APIRouter(prefix='/usuario', tags=['Usuario'])
 
 # Create
 @router.post('')
-def insert_usuario(usuario :Usuario):
+def insert_usuario(usuario: Usuario):
+
     engine = create_engine(DATABASE_URL)
+
     try:
-        with engine.begin() as con: 
+        with engine.begin() as con:
+
             sql = """INSERT INTO public.usuario
-                    (nome, senha, email, telefone)
-                    VALUES(:nome, :senha, :email, :telefone);"""            
+                    (nome, senha, email, telefone, tipo_usuario)
+                    VALUES (:nome, :senha, :email, :telefone, :tipo_usuario)"""
+
             dados = {
-                "nome" : usuario.nome,
+                "nome": usuario.nome,
                 "senha": usuario.senha,
                 "email": usuario.email,
-                "telefone": usuario.telefone
+                "telefone": usuario.telefone,
+                "tipo_usuario": usuario.tipo_usuario
             }
+
             con.execute(text(sql), dados)
+
     except Exception as erro:
         return erro
-    engine.dispose()
-    return 'Usuário cadastrado com sucesso!'
+
+    finally:
+        engine.dispose()
+
+    return "Usuário cadastrado com sucesso!"
   
 #READ
 @router.get('')
