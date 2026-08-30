@@ -60,7 +60,7 @@ def search_usuario(id : int):
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT nome, email, telefone 
+            sql = """SELECT nome, email, telefone, tipo_usuario
                     FROM public.usuario 
                     WHERE id = :id;"""
             response = con.execute(text(sql), {"id": id})
@@ -81,13 +81,15 @@ def update_usuario(id: int, usuario :Usuario):
                     senha= :senha, 
                     email= :email,
                     telefone = :telefone,
+                    tipo_usuario = :tipo_usuario
                     WHERE id = :id;"""            
             dados = {
                 "id": id, 
                 "nome": usuario.nome,
                 "senha": usuario.senha,
                 "email": usuario.email,
-                "telefone": usuario.telefone
+                "telefone": usuario.telefone,
+                "tipo_usuario": usuario.tipo_usuario
             }
             con.execute(text(sql), dados)
     except Exception as erro:
@@ -104,6 +106,7 @@ def delete_usuario(id : int):
             sql = """DELETE FROM usuario
                     WHERE id=:id;"""
             con.execute(text(sql), {"id": id})
+
             return 'Usuário deletado com sucesso!'
     except Exception as erro:
         return erro
