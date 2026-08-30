@@ -45,7 +45,7 @@ def select_usuario():
     engine = create_engine(DATABASE_URL)
     try:
         with engine.connect() as con:
-            sql = """SELECT id, nome, senha, email, telefone
+            sql = """SELECT id, nome, senha, email, telefone,tipo_usuario
                       FROM public.usuario;"""
             response = con.execute(text(sql))
             result = response.mappings().all()
