@@ -42,9 +42,18 @@ def select_cliente():
                     ON cliente.usuario_id = usuario.id"""
             response = con.execute(text(sql))
             result = response.mappings().all()
-    except Exception as e:
-        return e
-    engine.dispose()
+    except HTTPException:
+        raise
+
+    except Exception as erro:
+        raise HTTPException(
+            status_code=400,
+            detail=str(erro)
+        )
+
+    finally:
+        engine.dispose()
+
     return result
 
 # Read (buscar cliente por id)
