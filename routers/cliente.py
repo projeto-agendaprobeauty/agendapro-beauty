@@ -1,5 +1,5 @@
 import os
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from dotenv import load_dotenv
 from classes.cliente import Cliente
 from sqlalchemy import create_engine, text
@@ -22,9 +22,14 @@ def insert_cliente(cliente :Cliente):
             }
             con.execute(text(sql), dados)
     except Exception as erro:
-        return erro
-    engine.dispose()
+        raise HTTPException(status_code=400, detail=str(erro))
+
+    finally:    
+     engine.dispose()
+
     return 'Cliente cadastrado com sucesso!'
+
+
 # Read (todos os clientes)
 @router.get('')
 def select_cliente():
@@ -44,18 +49,36 @@ def select_cliente():
 
 # Read (buscar cliente por id)
 @router.get('/{id}')
-def search_cliente(id : int):
+def search_cliente(id: int):
     engine = create_engine(DATABASE_URL)
+
     try:
         with engine.connect() as con:
-            sql = """SELECT usuario.nome, usuario.email, usuario.telefone 
-                    FROM cliente
-                    JOIN usuario 
-                    ON cliente.usuario_id = usuario.id 
-                    WHERE cliente.id = :id"""
+            sql = """SELECT usuario.nome, usuario.email, usuario.telefone
+                     FROM cliente
+                     JOIN usuario
+                     ON cliente.usuario_id = usuario.id
+                     WHERE cliente.id = :id"""
+
             response = con.execute(text(sql), {"id": id})
             result = response.fetchone()
+
+            if not result:
+                raise HTTPException(
+                    status_code=404,
+                    detail="Cliente não encontrado"
+                )
+
+            return result._mapping
+
+    except HTTPException:
+        raise
+
     except Exception as erro:
-        return erro
-    engine.dispose()
-    return result._mapping
+        raise HTTPException(
+            status_code=400,
+            detail=str(erro)
+        )
+
+    finally:
+        engine.dispose()
